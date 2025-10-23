@@ -600,6 +600,43 @@
             border-left: 4px solid #1976d2;
         }
 
+        /* Preview Section */
+        .preview-section {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .preview-section.active {
+            display: block;
+        }
+
+        .preview-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .preview-canvas-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        #previewCanvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            background: white;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 24px;
@@ -778,6 +815,15 @@
         </div>
 
         <div class="photos-grid" id="photosGrid"></div>
+
+        <!-- Preview Section -->
+        <div class="preview-section" id="previewSection">
+            <h3>📸 Your Photostrip Preview</h3>
+            <p class="subtitle">Here's how your photostrip will look!</p>
+            <div class="preview-canvas-container">
+                <canvas id="previewCanvas"></canvas>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -964,6 +1010,8 @@
                 captureBtn.disabled = true;
                 downloadBtn.disabled = false;
                 showMessage(`All ${requiredPhotos} photos captured! You can download your photo strip now.`, 'success');
+                // Show preview
+                generatePreview();
             } else {
                 captureBtn.disabled = false;
                 showMessage(`Photo ${photos.length} captured! ${requiredPhotos - photos.length} more to go.`, 'success');
@@ -995,6 +1043,8 @@
             if (photos.length < requiredPhotos) {
                 captureBtn.disabled = false;
                 downloadBtn.disabled = photos.length === 0;
+                // Hide preview when photos are removed
+                document.getElementById('previewSection').classList.remove('active');
             }
 
             if (photos.length === 0) {
@@ -1012,22 +1062,30 @@
                 captureBtn.disabled = false;
                 resetBtn.disabled = true;
                 downloadBtn.disabled = true;
+                document.getElementById('previewSection').classList.remove('active');
                 showMessage('All photos reset. Start capturing new ones!', 'info');
             }
         }
 
-        function downloadStrip() {
-            if (photos.length === 0) {
-                showMessage('No photos to download!', 'error');
-                return;
-            }
-
-            // Get selected layout
+        function generatePreview() {
+            const previewSection = document.getElementById('previewSection');
+            const previewCanvas = document.getElementById('previewCanvas');
             const layout = document.querySelector('input[name="layout"]:checked').value;
 
-            // Create a canvas for the photo strip
-            const stripCanvas = document.createElement('canvas');
-            const stripCtx = stripCanvas.getContext('2d');
+            // Draw the photo strip on the preview canvas
+            drawPhotoStripOnCanvas(previewCanvas, layout);
+            
+            // Show the preview section
+            previewSection.classList.add('active');
+            
+            // Scroll to preview
+            setTimeout(() => {
+                previewSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function drawPhotoStripOnCanvas(targetCanvas, layout) {
+            const stripCtx = targetCanvas.getContext('2d');
 
             // Set dimensions based on layout
             const photoWidth = 500;
@@ -1041,41 +1099,41 @@
             // Calculate canvas size based on layout
             if (layout === 'layoutA') {
                 // 3 photos vertical
-                stripCanvas.width = photoWidth + (padding * 2) + (borderWidth * 2);
-                stripCanvas.height = (photoHeight * 3) + (photoPadding * 2) + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
+                targetCanvas.width = photoWidth + (padding * 2) + (borderWidth * 2);
+                targetCanvas.height = (photoHeight * 3) + (photoPadding * 2) + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
             } else if (layout === 'layoutB') {
                 // 2x2 grid (4 photos)
-                stripCanvas.width = (photoWidth * 2) + photoPadding + (padding * 2) + (borderWidth * 2);
-                stripCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
+                targetCanvas.width = (photoWidth * 2) + photoPadding + (padding * 2) + (borderWidth * 2);
+                targetCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
             } else if (layout === 'layoutC') {
                 // 2 photos large vertical
-                stripCanvas.width = photoWidth + (padding * 2) + (borderWidth * 2);
-                stripCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
+                targetCanvas.width = photoWidth + (padding * 2) + (borderWidth * 2);
+                targetCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
             } else if (layout === 'layoutD') {
                 // Mixed layout (collage style)
-                stripCanvas.width = (photoWidth * 2) + photoPadding + (padding * 2) + (borderWidth * 2);
-                stripCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
+                targetCanvas.width = (photoWidth * 2) + photoPadding + (padding * 2) + (borderWidth * 2);
+                targetCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
             } else {
-                // Horizontal layout
-                stripCanvas.width = (photoWidth * 3) + (photoPadding * 2) + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
-                stripCanvas.height = photoHeight + (padding * 2) + (borderWidth * 2);
+                // Horizontal layout - wider to fit 3 photos side by side
+                targetCanvas.width = (photoWidth * 3) + (photoPadding * 2) + (padding * 2) + (borderWidth * 2);
+                targetCanvas.height = photoHeight + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
             }
 
             // Purple aesthetic gradient background
             const gradient = (layout === 'horizontal')
-                ? stripCtx.createLinearGradient(0, 0, stripCanvas.width, 0)
-                : stripCtx.createLinearGradient(0, 0, 0, stripCanvas.height);
+                ? stripCtx.createLinearGradient(0, 0, targetCanvas.width, 0)
+                : stripCtx.createLinearGradient(0, 0, 0, targetCanvas.height);
             gradient.addColorStop(0, '#e0c3fc');
             gradient.addColorStop(0.33, '#c3a6f5');
             gradient.addColorStop(0.66, '#a78bfa');
             gradient.addColorStop(1, '#8b5cf6');
             stripCtx.fillStyle = gradient;
-            stripCtx.fillRect(0, 0, stripCanvas.width, stripCanvas.height);
+            stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
 
             // Outer border
             stripCtx.strokeStyle = '#ffffff';
             stripCtx.lineWidth = borderWidth;
-            stripCtx.strokeRect(borderWidth / 2, borderWidth / 2, stripCanvas.width - borderWidth, stripCanvas.height - borderWidth);
+            stripCtx.strokeRect(borderWidth / 2, borderWidth / 2, targetCanvas.width - borderWidth, targetCanvas.height - borderWidth);
 
             // Decorative corner elements
             const cornerSize = 30;
@@ -1084,14 +1142,14 @@
             stripCtx.fillRect(borderWidth, borderWidth, cornerSize, 5);
             stripCtx.fillRect(borderWidth, borderWidth, 5, cornerSize);
             // Top right
-            stripCtx.fillRect(stripCanvas.width - borderWidth - cornerSize, borderWidth, cornerSize, 5);
-            stripCtx.fillRect(stripCanvas.width - borderWidth - 5, borderWidth, 5, cornerSize);
+            stripCtx.fillRect(targetCanvas.width - borderWidth - cornerSize, borderWidth, cornerSize, 5);
+            stripCtx.fillRect(targetCanvas.width - borderWidth - 5, borderWidth, 5, cornerSize);
             // Bottom left
-            stripCtx.fillRect(borderWidth, stripCanvas.height - borderWidth - 5, cornerSize, 5);
-            stripCtx.fillRect(borderWidth, stripCanvas.height - borderWidth - cornerSize, 5, cornerSize);
+            stripCtx.fillRect(borderWidth, targetCanvas.height - borderWidth - 5, cornerSize, 5);
+            stripCtx.fillRect(borderWidth, targetCanvas.height - borderWidth - cornerSize, 5, cornerSize);
             // Bottom right
-            stripCtx.fillRect(stripCanvas.width - borderWidth - cornerSize, stripCanvas.height - borderWidth - 5, cornerSize, 5);
-            stripCtx.fillRect(stripCanvas.width - borderWidth - 5, stripCanvas.height - borderWidth - cornerSize, 5, cornerSize);
+            stripCtx.fillRect(targetCanvas.width - borderWidth - cornerSize, targetCanvas.height - borderWidth - 5, cornerSize, 5);
+            stripCtx.fillRect(targetCanvas.width - borderWidth - 5, targetCanvas.height - borderWidth - cornerSize, 5, cornerSize);
 
             const date = new Date().toLocaleDateString('en-US', { 
                 year: 'numeric', 
@@ -1265,40 +1323,18 @@
                 drawFooter(stripCanvas.width / 2, footerY);
 
             } else {
-                // HORIZONTAL LAYOUT
-                const headerX = borderWidth + 20;
+                // HORIZONTAL LAYOUT - Clean horizontal strip with header on top
+                drawHeader(stripCanvas.width / 2, borderWidth + 50);
                 
-                // Save context for vertical text
-                stripCtx.save();
-                stripCtx.translate(headerX + 50, stripCanvas.height / 2);
-                stripCtx.rotate(-Math.PI / 2);
+                const startY = borderWidth + headerSize;
+                const startX = borderWidth + padding;
                 
-                // Title
-                stripCtx.fillStyle = '#ffffff';
-                stripCtx.font = 'bold 48px Arial';
-                stripCtx.textAlign = 'center';
-                stripCtx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-                stripCtx.shadowBlur = 10;
-                stripCtx.shadowOffsetX = 2;
-                stripCtx.shadowOffsetY = 2;
-                stripCtx.fillText('💜 Memories 💜', 0, 0);
-
-                // Date
-                stripCtx.shadowBlur = 0;
-                stripCtx.shadowOffsetX = 0;
-                stripCtx.shadowOffsetY = 0;
-                stripCtx.font = '20px Arial';
-                stripCtx.fillText(date, 0, 35);
-                
-                stripCtx.restore();
-
-                // Draw photos horizontally
-                const startX = borderWidth + headerSize;
+                // Draw photos horizontally in a row
                 photos.forEach((photo, index) => {
                     const img = new Image();
                     img.src = photo;
                     const x = startX + (index * (photoWidth + photoPadding));
-                    const y = borderWidth + padding;
+                    const y = startY;
 
                     // White polaroid frame
                     stripCtx.fillStyle = '#ffffff';
@@ -1306,7 +1342,7 @@
                     stripCtx.shadowBlur = 15;
                     stripCtx.shadowOffsetX = 0;
                     stripCtx.shadowOffsetY = 5;
-                    stripCtx.fillRect(x - 15, y - 15, photoWidth + 30, photoHeight + 50);
+                    stripCtx.fillRect(x - 12, y - 12, photoWidth + 24, photoHeight + 40);
 
                     // Reset shadow for photo
                     stripCtx.shadowBlur = 0;
@@ -1318,39 +1354,42 @@
 
                     // Photo number in polaroid bottom space
                     stripCtx.fillStyle = '#666';
-                    stripCtx.font = 'italic 18px Arial';
+                    stripCtx.font = 'italic 16px Arial';
                     stripCtx.textAlign = 'center';
-                    stripCtx.fillText(`Photo ${index + 1}`, x + photoWidth / 2, y + photoHeight + 30);
+                    stripCtx.fillText(`Photo ${index + 1}`, x + photoWidth / 2, y + photoHeight + 25);
 
                     // Add small heart decoration
                     stripCtx.fillStyle = '#a18cd1';
-                    stripCtx.font = '16px Arial';
-                    stripCtx.fillText('💜', x + photoWidth - 20, y + photoHeight + 30);
+                    stripCtx.font = '14px Arial';
+                    stripCtx.fillText('💜', x + photoWidth - 15, y + photoHeight + 25);
                 });
 
-                // Footer section (vertical on right side)
-                const footerX = borderWidth + headerSize + (photoWidth * photos.length) + (photoPadding * (photos.length - 1)) + padding + 30;
-                
-                stripCtx.save();
-                stripCtx.translate(footerX + 35, stripCanvas.height / 2);
-                stripCtx.rotate(-Math.PI / 2);
-                
-                // Footer text
-                stripCtx.fillStyle = '#ffffff';
-                stripCtx.font = '16px Arial';
-                stripCtx.textAlign = 'center';
-                stripCtx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-                stripCtx.shadowBlur = 5;
-                stripCtx.fillText('Made with 💜', 0, 0);
-                
-                stripCtx.restore();
+                // Footer section at the bottom
+                const footerY = startY + photoHeight + 60;
+                drawFooter(stripCanvas.width / 2, footerY);
             }
+        }
+
+        function downloadStrip() {
+            if (photos.length === 0) {
+                showMessage('No photos to download!', 'error');
+                return;
+            }
+
+            // Get selected layout
+            const layout = document.querySelector('input[name="layout"]:checked').value;
+
+            // Create a temporary canvas for download
+            const downloadCanvas = document.createElement('canvas');
+            
+            // Draw the photo strip
+            drawPhotoStripOnCanvas(downloadCanvas, layout);
 
             // Download
             setTimeout(() => {
                 const link = document.createElement('a');
                 link.download = `purple-photobooth-${layout}-${Date.now()}.png`;
-                link.href = stripCanvas.toDataURL('image/png');
+                link.href = downloadCanvas.toDataURL('image/png');
                 link.click();
                 showMessage(`Purple photo strip (${layout}) downloaded successfully! 💜`, 'success');
             }, 100);
