@@ -1197,10 +1197,24 @@
                         <button class="color-btn" data-color="gingham-blue" style="background: repeating-linear-gradient(45deg, #add8e6, #add8e6 5px, #ffffff 5px, #ffffff 10px);"></button>
                         <button class="color-btn" data-color="checkered" style="background: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%); background-size: 10px 10px;"></button>
                         <button class="color-btn" data-color="dots" style="background: radial-gradient(circle, #333 20%, transparent 20%), radial-gradient(circle, #333 20%, transparent 20%); background-size: 10px 10px; background-position: 0 0, 5px 5px;"></button>
-                        <button class="color-btn" data-color="hearts" style="background: #ffc0cb; position: relative;"></button>
+                        <button class="color-btn" data-color="hearts-pink" style="background: #ffc0cb;"></button>
                         <button class="color-btn" data-color="polka" style="background: #000; background-image: radial-gradient(#fff 20%, transparent 20%); background-size: 8px 8px;"></button>
                         <button class="color-btn" data-color="gingham-red" style="background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 5px, #ffffff 5px, #ffffff 10px);"></button>
                         <button class="color-btn" data-color="red-gingham" style="background: repeating-linear-gradient(0deg, #dc143c, #dc143c 8px, #fff 8px, #fff 16px), repeating-linear-gradient(90deg, #dc143c, #dc143c 8px, #fff 8px, #fff 16px);"></button>
+                        <button class="color-btn" data-color="stars" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></button>
+                        <button class="color-btn" data-color="pastel-rainbow" style="background: linear-gradient(90deg, #ffadad, #ffd6a5, #fdffb6, #caffbf, #9bf6ff, #a0c4ff, #bdb2ff);"></button>
+                        <button class="color-btn" data-color="sunset" style="background: linear-gradient(135deg, #ff6b6b, #ff8e53, #feca57);"></button>
+                        <button class="color-btn" data-color="ocean" style="background: linear-gradient(135deg, #667eea, #4facfe);"></button>
+                        <button class="color-btn" data-color="mint" style="background: linear-gradient(135deg, #a8edea, #fed6e3);"></button>
+                        <button class="color-btn" data-color="peach" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);"></button>
+                        <button class="color-btn" data-color="lavender" style="background: linear-gradient(135deg, #e0c3fc, #8ec5fc);"></button>
+                        <button class="color-btn" data-color="cherry" style="background: linear-gradient(135deg, #ff9a9e, #fad0c4);"></button>
+                        <button class="color-btn" data-color="stripes-blue" style="background: repeating-linear-gradient(90deg, #add8e6, #add8e6 15px, #ffffff 15px, #ffffff 30px);"></button>
+                        <button class="color-btn" data-color="stripes-pink" style="background: repeating-linear-gradient(90deg, #ffb6c1, #ffb6c1 15px, #ffffff 15px, #ffffff 30px);"></button>
+                        <button class="color-btn" data-color="hearts-purple" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);"></button>
+                        <button class="color-btn" data-color="coral" style="background: #ff7f50;"></button>
+                        <button class="color-btn" data-color="teal" style="background: #008080;"></button>
+                        <button class="color-btn" data-color="rose-gold" style="background: linear-gradient(135deg, #d4af37, #f5e6d3);"></button>
                     </div>
                 </div>
 
@@ -1738,8 +1752,48 @@
                 for (let x = 0; x < targetCanvas.width; x += 16) {
                     stripCtx.fillRect(x, 0, 8, targetCanvas.height);
                 }
+            } else if (customOptions.frameColor === 'hearts-pink' || customOptions.frameColor === 'hearts-purple') {
+                // Heart pattern background
+                const bgColor = customOptions.frameColor === 'hearts-pink' ? '#ffc0cb' : '#e0c3fc';
+                const heartColor = customOptions.frameColor === 'hearts-pink' ? '#ff69b4' : '#a18cd1';
+                stripCtx.fillStyle = bgColor;
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                
+                // Draw hearts pattern
+                stripCtx.fillStyle = heartColor;
+                stripCtx.font = '30px Arial';
+                for (let y = 30; y < targetCanvas.height; y += 60) {
+                    for (let x = 30; x < targetCanvas.width; x += 60) {
+                        const offset = (Math.floor(y / 60) % 2) * 30;
+                        stripCtx.fillText('💗', x + offset, y);
+                    }
+                }
+            } else if (customOptions.frameColor === 'stars') {
+                const gradient = stripCtx.createLinearGradient(0, 0, 0, targetCanvas.height);
+                gradient.addColorStop(0, '#667eea');
+                gradient.addColorStop(1, '#764ba2');
+                stripCtx.fillStyle = gradient;
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                
+                // Add stars
+                stripCtx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                stripCtx.font = '20px Arial';
+                for (let y = 30; y < targetCanvas.height; y += 80) {
+                    for (let x = 30; x < targetCanvas.width; x += 80) {
+                        const offset = (Math.floor(y / 80) % 2) * 40;
+                        stripCtx.fillText('⭐', x + offset, y);
+                    }
+                }
+            } else if (customOptions.frameColor.startsWith('stripes-')) {
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                const stripeColor = customOptions.frameColor.includes('pink') ? '#ffb6c1' : '#add8e6';
+                stripCtx.fillStyle = stripeColor;
+                for (let x = 0; x < targetCanvas.width; x += 30) {
+                    stripCtx.fillRect(x, 0, 15, targetCanvas.height);
+                }
             } else {
-                // Solid color
+                // Solid color or gradient
                 stripCtx.fillStyle = customOptions.frameColor;
                 stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
             }
@@ -1773,21 +1827,30 @@
 
             // Draw header for all layouts
             function drawHeader(x, y, centered = true) {
-                stripCtx.fillStyle = '#ffffff';
                 stripCtx.font = 'bold 40px Arial';
                 stripCtx.textAlign = centered ? 'center' : 'left';
-                stripCtx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-                stripCtx.shadowBlur = 8;
-                stripCtx.shadowOffsetX = 2;
-                stripCtx.shadowOffsetY = 2;
                 
                 // Use custom logo or default
                 const logoText = customOptions.logo === 'ENG' ? '💜 Memories 💜' :
                                 customOptions.logo === 'KOR' ? '💜 추억 💜' :
                                 customOptions.logo === 'CN' ? '💜 回忆 💜' :
                                 '💜 Memories 💜';
+                
+                // Draw text with stronger outline for better visibility
+                // Black outline
+                stripCtx.strokeStyle = '#000000';
+                stripCtx.lineWidth = 6;
+                stripCtx.strokeText(logoText, x, y);
+                
+                // White fill
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+                stripCtx.shadowBlur = 15;
+                stripCtx.shadowOffsetX = 3;
+                stripCtx.shadowOffsetY = 3;
                 stripCtx.fillText(logoText, x, y);
 
+                // Reset shadow and draw date/time
                 stripCtx.shadowBlur = 0;
                 stripCtx.shadowOffsetX = 0;
                 stripCtx.shadowOffsetY = 0;
@@ -1806,18 +1869,109 @@
                     dateTimeText += (dateTimeText ? ' ' : '') + time;
                 }
                 if (dateTimeText) {
+                    // Outline for date/time
+                    stripCtx.strokeStyle = '#000000';
+                    stripCtx.lineWidth = 3;
+                    stripCtx.strokeText(dateTimeText, x, y + 25);
+                    
+                    stripCtx.fillStyle = '#ffffff';
+                    stripCtx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+                    stripCtx.shadowBlur = 10;
                     stripCtx.fillText(dateTimeText, x, y + 25);
+                    
+                    stripCtx.shadowBlur = 0;
                 }
             }
 
             // Draw footer for all layouts
             function drawFooter(x, y, centered = true) {
-                stripCtx.fillStyle = '#ffffff';
                 stripCtx.font = '14px Arial';
                 stripCtx.textAlign = centered ? 'center' : 'left';
-                stripCtx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-                stripCtx.shadowBlur = 5;
-                stripCtx.fillText('Made with 💜 in Photo Booth', x, y);
+                
+                const footerText = 'Made with 💜 in Photo Booth';
+                
+                // Black outline
+                stripCtx.strokeStyle = '#000000';
+                stripCtx.lineWidth = 3;
+                stripCtx.strokeText(footerText, x, y);
+                
+                // White fill with shadow
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+                stripCtx.shadowBlur = 8;
+                stripCtx.fillText(footerText, x, y);
+                
+                stripCtx.shadowBlur = 0;
+            }
+
+            // Helper function to apply photo shape clipping
+            function applyPhotoShape(x, y, width, height) {
+                if (customOptions.photoShape === 'circle') {
+                    stripCtx.beginPath();
+                    stripCtx.arc(x + width / 2, y + height / 2, Math.min(width, height) / 2, 0, Math.PI * 2);
+                    stripCtx.clip();
+                } else if (customOptions.photoShape === 'rounded') {
+                    const radius = 20;
+                    stripCtx.beginPath();
+                    stripCtx.moveTo(x + radius, y);
+                    stripCtx.lineTo(x + width - radius, y);
+                    stripCtx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                    stripCtx.lineTo(x + width, y + height - radius);
+                    stripCtx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                    stripCtx.lineTo(x + radius, y + height);
+                    stripCtx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                    stripCtx.lineTo(x, y + radius);
+                    stripCtx.quadraticCurveTo(x, y, x + radius, y);
+                    stripCtx.clip();
+                } else if (customOptions.photoShape === 'heart') {
+                    const centerX = x + width / 2;
+                    const centerY = y + height / 2;
+                    const heartWidth = width * 0.9;
+                    const heartHeight = height * 0.9;
+                    
+                    stripCtx.beginPath();
+                    stripCtx.moveTo(centerX, centerY + heartHeight * 0.4);
+                    stripCtx.bezierCurveTo(
+                        centerX - heartWidth * 0.5, centerY + heartHeight * 0.2,
+                        centerX - heartWidth * 0.5, centerY - heartHeight * 0.1,
+                        centerX - heartWidth * 0.25, centerY - heartHeight * 0.3
+                    );
+                    stripCtx.bezierCurveTo(
+                        centerX - heartWidth * 0.4, centerY - heartHeight * 0.5,
+                        centerX - heartWidth * 0.15, centerY - heartHeight * 0.5,
+                        centerX, centerY - heartHeight * 0.3
+                    );
+                    stripCtx.bezierCurveTo(
+                        centerX + heartWidth * 0.15, centerY - heartHeight * 0.5,
+                        centerX + heartWidth * 0.4, centerY - heartHeight * 0.5,
+                        centerX + heartWidth * 0.25, centerY - heartHeight * 0.3
+                    );
+                    stripCtx.bezierCurveTo(
+                        centerX + heartWidth * 0.5, centerY - heartHeight * 0.1,
+                        centerX + heartWidth * 0.5, centerY + heartHeight * 0.2,
+                        centerX, centerY + heartHeight * 0.4
+                    );
+                    stripCtx.closePath();
+                    stripCtx.clip();
+                }
+            }
+
+            // Helper function to draw sticker on photo
+            function drawSticker(x, y, width, height) {
+                if (customOptions.sticker && customOptions.sticker !== 'none') {
+                    const stickerMap = {
+                        'ghost': '👻', 'clover': '🍀', 'kiss': '💋', 'heart': '💗',
+                        'bow': '🎀', 'star': '⭐', 'love': '🤍', 'unicorn': '🦄',
+                        'sparkle': '✨', 'music': '🎵', 'heart2': '💕', 'bear': '🐻',
+                        'koala': '🐨', 'panda': '🐼', 'frog': '🐸', 'flower': '🌸',
+                        'cherry': '🍒', 'cake': '🎂', 'pizza': '🍕', 'crown': '👑',
+                        'fire': '🔥', 'rainbow': '🌈', 'moon': '🌙'
+                    };
+                    
+                    stripCtx.font = '40px Arial';
+                    stripCtx.textAlign = 'right';
+                    stripCtx.fillText(stickerMap[customOptions.sticker] || '', x + width - 10, y + 50);
+                }
             }
 
             // Draw photo with polaroid frame
@@ -1837,85 +1991,12 @@
 
                 // Draw photo with shape
                 stripCtx.save();
-                
-                if (customOptions.photoShape === 'circle') {
-                    stripCtx.beginPath();
-                    stripCtx.arc(x + width / 2, y + height / 2, Math.min(width, height) / 2, 0, Math.PI * 2);
-                    stripCtx.clip();
-                } else if (customOptions.photoShape === 'rounded') {
-                    const radius = 20;
-                    stripCtx.beginPath();
-                    stripCtx.moveTo(x + radius, y);
-                    stripCtx.lineTo(x + width - radius, y);
-                    stripCtx.quadraticCurveTo(x + width, y, x + width, y + radius);
-                    stripCtx.lineTo(x + width, y + height - radius);
-                    stripCtx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-                    stripCtx.lineTo(x + radius, y + height);
-                    stripCtx.quadraticCurveTo(x, y + height, x, y + height - radius);
-                    stripCtx.lineTo(x, y + radius);
-                    stripCtx.quadraticCurveTo(x, y, x + radius, y);
-                    stripCtx.clip();
-                } else if (customOptions.photoShape === 'heart') {
-                    // Heart shape clipping - proper heart shape
-                    const centerX = x + width / 2;
-                    const centerY = y + height / 2;
-                    const heartWidth = width * 0.9;
-                    const heartHeight = height * 0.9;
-                    
-                    stripCtx.beginPath();
-                    // Start at bottom point of heart
-                    stripCtx.moveTo(centerX, centerY + heartHeight * 0.4);
-                    
-                    // Left side of heart - bottom curve
-                    stripCtx.bezierCurveTo(
-                        centerX - heartWidth * 0.5, centerY + heartHeight * 0.2,
-                        centerX - heartWidth * 0.5, centerY - heartHeight * 0.1,
-                        centerX - heartWidth * 0.25, centerY - heartHeight * 0.3
-                    );
-                    
-                    // Left top lobe
-                    stripCtx.bezierCurveTo(
-                        centerX - heartWidth * 0.4, centerY - heartHeight * 0.5,
-                        centerX - heartWidth * 0.15, centerY - heartHeight * 0.5,
-                        centerX, centerY - heartHeight * 0.3
-                    );
-                    
-                    // Right top lobe
-                    stripCtx.bezierCurveTo(
-                        centerX + heartWidth * 0.15, centerY - heartHeight * 0.5,
-                        centerX + heartWidth * 0.4, centerY - heartHeight * 0.5,
-                        centerX + heartWidth * 0.25, centerY - heartHeight * 0.3
-                    );
-                    
-                    // Right side of heart - bottom curve
-                    stripCtx.bezierCurveTo(
-                        centerX + heartWidth * 0.5, centerY - heartHeight * 0.1,
-                        centerX + heartWidth * 0.5, centerY + heartHeight * 0.2,
-                        centerX, centerY + heartHeight * 0.4
-                    );
-                    
-                    stripCtx.closePath();
-                    stripCtx.clip();
-                }
-                
+                applyPhotoShape(x, y, width, height);
                 stripCtx.drawImage(img, x, y, width, height);
                 stripCtx.restore();
 
-                // Add sticker if selected
-                if (customOptions.sticker && customOptions.sticker !== 'none') {
-                    const stickerMap = {
-                        'ghost': '👻', 'clover': '🍀', 'kiss': '💋', 'heart': '💗',
-                        'bow': '🎀', 'star': '⭐', 'love': '🤍', 'unicorn': '🦄',
-                        'sparkle': '✨', 'music': '🎵', 'heart2': '💕', 'bear': '🐻',
-                        'koala': '🐨', 'panda': '🐼', 'frog': '🐸', 'flower': '🌸',
-                        'cherry': '🍒', 'cake': '🎂', 'pizza': '🍕', 'crown': '👑',
-                        'fire': '🔥', 'rainbow': '🌈', 'moon': '🌙'
-                    };
-                    
-                    stripCtx.font = '40px Arial';
-                    stripCtx.textAlign = 'right';
-                    stripCtx.fillText(stickerMap[customOptions.sticker] || '', x + width - 10, y + 50);
-                }
+                // Add sticker
+                drawSticker(x, y, width, height);
 
                 // Photo number
                 stripCtx.fillStyle = '#666';
@@ -2015,7 +2096,15 @@
                             stripCtx.shadowBlur = 10;
                             stripCtx.fillRect(x - 8, y - 8, smallWidth + 16, smallHeight + 16);
                             stripCtx.shadowBlur = 0;
+                            
+                            // Apply shape and draw photo
+                            stripCtx.save();
+                            applyPhotoShape(x, y, smallWidth, smallHeight);
                             stripCtx.drawImage(img, x, y, smallWidth, smallHeight);
+                            stripCtx.restore();
+                            
+                            // Add sticker
+                            drawSticker(x, y, smallWidth, smallHeight);
                             
                             // Add photo number
                             stripCtx.fillStyle = '#666';
@@ -2054,8 +2143,14 @@
                     stripCtx.shadowOffsetX = 0;
                     stripCtx.shadowOffsetY = 0;
 
-                    // Draw photo
+                    // Draw photo with shape
+                    stripCtx.save();
+                    applyPhotoShape(x, y, photoWidth, photoHeight);
                     stripCtx.drawImage(img, x, y, photoWidth, photoHeight);
+                    stripCtx.restore();
+                    
+                    // Add sticker
+                    drawSticker(x, y, photoWidth, photoHeight);
 
                     // Photo number in polaroid bottom space
                     stripCtx.fillStyle = '#666';
@@ -2118,13 +2213,14 @@
                     stripCtx.shadowOffsetX = 0;
                     stripCtx.shadowOffsetY = 0;
                     
-                    // Clip to circle
+                    // Draw photo with custom shape
                     stripCtx.save();
-                    stripCtx.beginPath();
-                    stripCtx.arc(x + photoWidth / 2, y + photoHeight / 2, Math.min(photoWidth, photoHeight) / 2 - 10, 0, Math.PI * 2);
-                    stripCtx.clip();
+                    applyPhotoShape(x, y, photoWidth, photoHeight);
                     stripCtx.drawImage(img, x, y, photoWidth, photoHeight);
                     stripCtx.restore();
+                    
+                    // Add sticker
+                    drawSticker(x, y, photoWidth, photoHeight);
                     
                     // Add decorative sparkles
                     stripCtx.fillStyle = '#ff69b4';
@@ -2160,8 +2256,14 @@
                     stripCtx.fillStyle = '#ffffff';
                     stripCtx.fillRect(x - 15, y - 15, photoWidth + 30, photoHeight + 30);
                     
-                    // Draw photo
+                    // Draw photo with shape
+                    stripCtx.save();
+                    applyPhotoShape(x, y, photoWidth, photoHeight);
                     stripCtx.drawImage(img, x, y, photoWidth, photoHeight);
+                    stripCtx.restore();
+                    
+                    // Add sticker
+                    drawSticker(x, y, photoWidth, photoHeight);
                     
                     // Black border
                     stripCtx.strokeStyle = '#000000';
