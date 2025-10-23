@@ -453,6 +453,66 @@
             margin-top: 3px;
         }
 
+        /* Filter Selector */
+        .filter-selector {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+        }
+
+        .filter-selector h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .filter-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .filter-option {
+            cursor: pointer;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            background: white;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .filter-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .filter-option.selected {
+            border-color: #667eea;
+            background: #f9f6ff;
+        }
+
+        .filter-preview {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 8px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .filter-option label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
         .controls {
             display: flex;
             gap: 15px;
@@ -742,6 +802,42 @@
             <div class="flash-effect" id="flash"></div>
         </div>
 
+        <div class="filter-selector">
+            <h3>🎨 Choose a Filter</h3>
+            <p class="subtitle" style="margin-bottom: 15px;">Add some style to your photos!</p>
+            
+            <div class="filter-options">
+                <div class="filter-option selected" onclick="selectFilter('none')">
+                    <div class="filter-preview" style="filter: none;"></div>
+                    <label>Normal</label>
+                </div>
+                <div class="filter-option" onclick="selectFilter('grayscale')">
+                    <div class="filter-preview" style="filter: grayscale(100%);"></div>
+                    <label>B&W</label>
+                </div>
+                <div class="filter-option" onclick="selectFilter('sepia')">
+                    <div class="filter-preview" style="filter: sepia(100%);"></div>
+                    <label>Sepia</label>
+                </div>
+                <div class="filter-option" onclick="selectFilter('vintage')">
+                    <div class="filter-preview" style="filter: sepia(50%) contrast(120%) brightness(110%);"></div>
+                    <label>Vintage</label>
+                </div>
+                <div class="filter-option" onclick="selectFilter('cool')">
+                    <div class="filter-preview" style="filter: saturate(150%) hue-rotate(180deg);"></div>
+                    <label>Cool</label>
+                </div>
+                <div class="filter-option" onclick="selectFilter('warm')">
+                    <div class="filter-preview" style="filter: saturate(150%) hue-rotate(-20deg) brightness(110%);"></div>
+                    <label>Warm</label>
+                </div>
+                <div class="filter-option" onclick="selectFilter('vivid')">
+                    <div class="filter-preview" style="filter: saturate(200%) contrast(120%);"></div>
+                    <label>Vivid</label>
+                </div>
+            </div>
+        </div>
+
         <div class="layout-selector">
             <h3>📐 Choose Your Layout</h3>
             <p class="subtitle" style="margin-bottom: 15px;">Select how you want your photos arranged</p>
@@ -831,6 +927,7 @@
         let photos = [];
         let maxPhotos = 3; // Will be updated based on layout
         let countdownInterval = null;
+        let currentFilter = 'none'; // Current selected filter
 
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -853,6 +950,85 @@
             'layoutD': 6,
             'horizontal': 3
         };
+
+        // Filter selection and application
+        function selectFilter(filterName) {
+            currentFilter = filterName;
+            
+            // Update UI
+            document.querySelectorAll('.filter-option').forEach(opt => opt.classList.remove('selected'));
+            event.target.closest('.filter-option').classList.add('selected');
+            
+            // Apply filter to video preview
+            applyFilterToVideo();
+        }
+
+        function applyFilterToVideo() {
+            const filterStyles = {
+                'none': 'none',
+                'grayscale': 'grayscale(100%)',
+                'sepia': 'sepia(100%)',
+                'vintage': 'sepia(50%) contrast(120%) brightness(110%)',
+                'cool': 'saturate(150%) hue-rotate(180deg)',
+                'warm': 'saturate(150%) hue-rotate(-20deg) brightness(110%)',
+                'vivid': 'saturate(200%) contrast(120%)'
+            };
+            
+            video.style.filter = filterStyles[currentFilter] || 'none';
+        }
+
+        function applyFilterToCanvas(ctx, width, height) {
+            if (currentFilter === 'none') return;
+            
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            switch (currentFilter) {
+                case 'grayscale':
+                    for (let i = 0; i < data.length; i += 4) {
+                        const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+                        data[i] = data[i + 1] = data[i + 2] = gray;
+                    }
+                    break;
+                case 'sepia':
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i], g = data[i + 1], b = data[i + 2];
+                        data[i] = Math.min(255, r * 0.393 + g * 0.769 + b * 0.189);
+                        data[i + 1] = Math.min(255, r * 0.349 + g * 0.686 + b * 0.168);
+                        data[i + 2] = Math.min(255, r * 0.272 + g * 0.534 + b * 0.131);
+                    }
+                    break;
+                case 'vintage':
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i], g = data[i + 1], b = data[i + 2];
+                        data[i] = Math.min(255, (r * 0.393 + g * 0.769 + b * 0.189) * 1.2);
+                        data[i + 1] = Math.min(255, (r * 0.349 + g * 0.686 + b * 0.168) * 1.2);
+                        data[i + 2] = Math.min(255, (r * 0.272 + g * 0.534 + b * 0.131) * 1.1);
+                    }
+                    break;
+                case 'cool':
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, data[i] * 0.7);
+                        data[i + 2] = Math.min(255, data[i + 2] * 1.5);
+                    }
+                    break;
+                case 'warm':
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, data[i] * 1.5);
+                        data[i + 2] = Math.min(255, data[i + 2] * 0.7);
+                    }
+                    break;
+                case 'vivid':
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, data[i] * 1.3);
+                        data[i + 1] = Math.min(255, data[i + 1] * 1.3);
+                        data[i + 2] = Math.min(255, data[i + 2] * 1.3);
+                    }
+                    break;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
 
         // Get required photos for current layout
         function getRequiredPhotos() {
@@ -997,6 +1173,9 @@
             // Draw the video frame to canvas
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+            // Apply filter to the captured image
+            applyFilterToCanvas(ctx, canvas.width, canvas.height);
+
             // Get image data
             const imageData = canvas.toDataURL('image/png');
             photos.push(imageData);
@@ -1067,13 +1246,13 @@
             }
         }
 
-        function generatePreview() {
+        async function generatePreview() {
             const previewSection = document.getElementById('previewSection');
             const previewCanvas = document.getElementById('previewCanvas');
             const layout = document.querySelector('input[name="layout"]:checked').value;
 
             // Draw the photo strip on the preview canvas
-            drawPhotoStripOnCanvas(previewCanvas, layout);
+            await drawPhotoStripOnCanvas(previewCanvas, layout);
             
             // Show the preview section
             previewSection.classList.add('active');
@@ -1084,8 +1263,17 @@
             }, 100);
         }
 
-        function drawPhotoStripOnCanvas(targetCanvas, layout) {
+        async function drawPhotoStripOnCanvas(targetCanvas, layout) {
             const stripCtx = targetCanvas.getContext('2d');
+            
+            // Load all images first
+            const loadedImages = await Promise.all(photos.map(photoSrc => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.src = photoSrc;
+                });
+            }));
 
             // Set dimensions based on layout
             const photoWidth = 500;
@@ -1217,23 +1405,21 @@
 
             if (layout === 'layoutA') {
                 // LAYOUT A: 3 photos vertical
-                drawHeader(stripCanvas.width / 2, borderWidth + 50);
+                drawHeader(targetCanvas.width / 2, borderWidth + 50);
                 
                 const startY = borderWidth + headerSize;
-                photos.slice(0, 3).forEach((photo, index) => {
-                    const img = new Image();
-                    img.src = photo;
+                loadedImages.slice(0, 3).forEach((img, index) => {
                     const y = startY + (index * (photoHeight + photoPadding));
                     const x = borderWidth + padding;
                     drawPhotoWithFrame(img, x, y, photoWidth, photoHeight, index + 1);
                 });
 
                 const footerY = borderWidth + headerSize + (photoHeight * 3) + (photoPadding * 2) + padding + 20;
-                drawFooter(stripCanvas.width / 2, footerY);
+                drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutB') {
                 // LAYOUT B: 2x2 grid (4 photos)
-                drawHeader(stripCanvas.width / 2, borderWidth + 50);
+                drawHeader(targetCanvas.width / 2, borderWidth + 50);
                 
                 const startY = borderWidth + headerSize;
                 const startX = borderWidth + padding;
@@ -1244,9 +1430,8 @@
                 for (let row = 0; row < 2; row++) {
                     for (let col = 0; col < 2; col++) {
                         const photoIndex = row * 2 + col;
-                        if (photoIndex < photos.length) {
-                            const img = new Image();
-                            img.src = photos[photoIndex];
+                        if (photoIndex < loadedImages.length) {
+                            const img = loadedImages[photoIndex];
                             const x = startX + (col * (smallWidth + photoPadding));
                             const y = startY + (row * (smallHeight + photoPadding));
                             drawPhotoWithFrame(img, x, y, smallWidth, smallHeight, photoIndex + 1);
@@ -1255,27 +1440,25 @@
                 }
 
                 const footerY = startY + (smallHeight * 2) + photoPadding + 50;
-                drawFooter(stripCanvas.width / 2, footerY);
+                drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutC') {
                 // LAYOUT C: 2 large photos vertical
-                drawHeader(stripCanvas.width / 2, borderWidth + 50);
+                drawHeader(targetCanvas.width / 2, borderWidth + 50);
                 
                 const startY = borderWidth + headerSize;
-                photos.slice(0, 2).forEach((photo, index) => {
-                    const img = new Image();
-                    img.src = photo;
+                loadedImages.slice(0, 2).forEach((img, index) => {
                     const y = startY + (index * (photoHeight + photoPadding));
                     const x = borderWidth + padding;
                     drawPhotoWithFrame(img, x, y, photoWidth, photoHeight, index + 1);
                 });
 
                 const footerY = borderWidth + headerSize + (photoHeight * 2) + photoPadding + 20;
-                drawFooter(stripCanvas.width / 2, footerY);
+                drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutD') {
                 // LAYOUT D: Mixed/collage (6 photos - 2 large top, 4 small bottom)
-                drawHeader(stripCanvas.width / 2, borderWidth + 50);
+                drawHeader(targetCanvas.width / 2, borderWidth + 50);
                 
                 const startY = borderWidth + headerSize;
                 const startX = borderWidth + padding;
@@ -1285,9 +1468,8 @@
                 const smallHeight = photoHeight / 2 - photoPadding / 2;
 
                 // Top: 2 large photos side by side
-                for (let i = 0; i < 2 && i < photos.length; i++) {
-                    const img = new Image();
-                    img.src = photos[i];
+                for (let i = 0; i < 2 && i < loadedImages.length; i++) {
+                    const img = loadedImages[i];
                     const x = startX + (i * (largeWidth + photoPadding));
                     drawPhotoWithFrame(img, x, startY, largeWidth, largeHeight, i + 1);
                 }
@@ -1297,9 +1479,8 @@
                 for (let row = 0; row < 2; row++) {
                     for (let col = 0; col < 2; col++) {
                         const photoIndex = 2 + (row * 2) + col;
-                        if (photoIndex < photos.length) {
-                            const img = new Image();
-                            img.src = photos[photoIndex];
+                        if (photoIndex < loadedImages.length) {
+                            const img = loadedImages[photoIndex];
                             const x = startX + (col * (smallWidth + photoPadding));
                             const y = bottomY + (row * (smallHeight + photoPadding));
                             
@@ -1320,19 +1501,17 @@
                 }
 
                 const footerY = bottomY + (smallHeight * 2) + photoPadding + 30;
-                drawFooter(stripCanvas.width / 2, footerY);
+                drawFooter(targetCanvas.width / 2, footerY);
 
             } else {
                 // HORIZONTAL LAYOUT - Clean horizontal strip with header on top
-                drawHeader(stripCanvas.width / 2, borderWidth + 50);
+                drawHeader(targetCanvas.width / 2, borderWidth + 50);
                 
                 const startY = borderWidth + headerSize;
                 const startX = borderWidth + padding;
                 
                 // Draw photos horizontally in a row
-                photos.forEach((photo, index) => {
-                    const img = new Image();
-                    img.src = photo;
+                loadedImages.forEach((img, index) => {
                     const x = startX + (index * (photoWidth + photoPadding));
                     const y = startY;
 
@@ -1366,11 +1545,11 @@
 
                 // Footer section at the bottom
                 const footerY = startY + photoHeight + 60;
-                drawFooter(stripCanvas.width / 2, footerY);
+                drawFooter(targetCanvas.width / 2, footerY);
             }
         }
 
-        function downloadStrip() {
+        async function downloadStrip() {
             if (photos.length === 0) {
                 showMessage('No photos to download!', 'error');
                 return;
@@ -1382,8 +1561,8 @@
             // Create a temporary canvas for download
             const downloadCanvas = document.createElement('canvas');
             
-            // Draw the photo strip
-            drawPhotoStripOnCanvas(downloadCanvas, layout);
+            // Draw the photo strip and wait for it to complete
+            await drawPhotoStripOnCanvas(downloadCanvas, layout);
 
             // Download
             setTimeout(() => {
@@ -1392,7 +1571,7 @@
                 link.href = downloadCanvas.toDataURL('image/png');
                 link.click();
                 showMessage(`Purple photo strip (${layout}) downloaded successfully! 💜`, 'success');
-            }, 100);
+            }, 300);
         }
 
         // Stop camera when page is closed
