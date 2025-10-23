@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#667eea">
     <title>Missing Alegres</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -354,9 +359,12 @@
             padding: 10px;
             background: white;
             transition: all 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(102, 126, 234, 0.2);
         }
 
-        .layout-option:hover {
+        .layout-option:hover,
+        .layout-option:active {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
             border-color: #667eea;
@@ -484,9 +492,12 @@
             background: white;
             transition: all 0.3s ease;
             text-align: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(102, 126, 234, 0.2);
         }
 
-        .filter-option:hover {
+        .filter-option:hover,
+        .filter-option:active {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
             border-color: #667eea;
@@ -529,6 +540,9 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            touch-action: manipulation; /* Prevent double-tap zoom */
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .btn-primary {
@@ -927,36 +941,187 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                font-size: 16px; /* Prevent zoom on input focus */
+            }
+
             h1 {
-                font-size: 24px;
+                font-size: 22px;
+                padding: 10px;
             }
 
             .hero-title {
-                font-size: 48px;
+                font-size: 36px;
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+                padding: 0 15px;
             }
 
             .nav-links {
                 display: none;
             }
 
+            .container {
+                padding: 15px;
+                max-width: 100%;
+            }
+
             .controls {
                 flex-direction: column;
+                gap: 10px;
             }
 
             button {
                 width: 100%;
+                min-height: 48px; /* Touch-friendly button size */
+                font-size: 16px;
             }
 
             .photos-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .photo-strip {
-                width: 150px;
+                width: 120px;
             }
 
             .year-badges {
-                gap: 20px;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            /* Camera section mobile optimization */
+            #video {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .video-container {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            /* Filter options mobile */
+            .filter-options {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 10px;
+            }
+
+            /* Layout selector mobile */
+            .layout-options {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            /* Customize section mobile */
+            .customize-section {
+                padding: 15px;
+            }
+
+            .color-options {
+                gap: 8px;
+            }
+
+            .color-btn {
+                width: 35px;
+                height: 35px;
+                min-width: 35px;
+                min-height: 35px;
+            }
+
+            .shape-options {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .shape-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
+            }
+
+            .stickers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+                gap: 8px;
+                max-height: 250px;
+            }
+
+            .sticker-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+
+            .logo-options {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .logo-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .customize-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-retake,
+            .btn-download {
+                width: 100%;
+                min-height: 48px;
+                font-size: 16px;
+            }
+
+            /* Preview canvas mobile */
+            .preview-canvas-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            #previewCanvas {
+                max-width: 100%;
+            }
+
+            /* Top banner mobile */
+            .top-banner {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            /* Sample photos on landing - hide on very small screens */
+            .sample-photos {
+                gap: 15px;
+            }
+
+            .photo-strip.left,
+            .photo-strip.right {
+                display: none;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .color-btn {
+                width: 30px;
+                height: 30px;
+            }
+
+            .layout-options {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-options {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
