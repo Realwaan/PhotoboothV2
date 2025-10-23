@@ -697,6 +697,235 @@
             background: white;
         }
 
+        /* Customization Section */
+        .customize-section {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 100%);
+            border-radius: 15px;
+        }
+
+        .customize-section.active {
+            display: block;
+        }
+
+        .customize-section h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .customize-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .customize-group {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .customize-group h4 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .color-btn:hover {
+            transform: scale(1.1);
+            border-color: #667eea;
+        }
+
+        .color-btn.selected {
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .color-btn.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .shape-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .shape-btn {
+            width: 60px;
+            height: 60px;
+            background: #f5f5f5;
+            border: 3px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .shape-btn:hover {
+            background: #e8e8e8;
+            transform: translateY(-2px);
+        }
+
+        .shape-btn.selected {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .stickers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .sticker-btn {
+            width: 50px;
+            height: 50px;
+            background: #f5f5f5;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .sticker-btn:hover {
+            background: #e8e8e8;
+            transform: scale(1.1);
+        }
+
+        .sticker-btn.selected {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .logo-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .logo-btn {
+            padding: 10px 20px;
+            background: #f5f5f5;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-btn:hover {
+            background: #e8e8e8;
+        }
+
+        .logo-btn.selected {
+            border-color: #667eea;
+            background: #f0f0ff;
+            font-weight: 600;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .customize-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            justify-content: center;
+        }
+
+        .btn-retake {
+            padding: 12px 30px;
+            background: white;
+            color: #ff6b9d;
+            border: 2px solid #ff6b9d;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-retake:hover {
+            background: #ff6b9d;
+            color: white;
+        }
+
+        .btn-download {
+            padding: 12px 30px;
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: #ff4c85;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 24px;
@@ -900,6 +1129,29 @@
                     <label for="layoutHorizontal">Horizontal</label>
                     <div class="layout-note">3 photos side by side</div>
                 </div>
+
+                <div class="layout-option layout-e">
+                    <input type="radio" name="layout" value="layoutE" id="layoutE">
+                    <div class="layout-preview">
+                        <div class="layout-preview-box" style="width: 80%; height: 25px; border-radius: 50%;"></div>
+                        <div class="layout-preview-box" style="width: 80%; height: 25px; border-radius: 50%;"></div>
+                        <div class="layout-preview-box" style="width: 80%; height: 25px; border-radius: 50%;"></div>
+                    </div>
+                    <label for="layoutE">Heart Frames</label>
+                    <div class="layout-note">3 photos with hearts</div>
+                </div>
+
+                <div class="layout-option layout-f">
+                    <input type="radio" name="layout" value="layoutF" id="layoutF">
+                    <div class="layout-preview">
+                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
+                    </div>
+                    <label for="layoutF">Classic Strip</label>
+                    <div class="layout-note">4 photos classic</div>
+                </div>
             </div>
         </div>
 
@@ -920,6 +1172,106 @@
                 <canvas id="previewCanvas"></canvas>
             </div>
         </div>
+
+        <!-- Customize Section -->
+        <div class="customize-section" id="customizeSection">
+            <h3>customize your photo</h3>
+            
+            <div class="customize-grid">
+                <!-- Frame Color -->
+                <div class="customize-group">
+                    <h4>Frame Color</h4>
+                    <div class="color-options">
+                        <button class="color-btn selected" data-color="rainbow" style="background: linear-gradient(45deg, red, orange, yellow, green, blue, purple);"></button>
+                        <button class="color-btn" data-color="#ffb6c1" style="background: #ffb6c1;"></button>
+                        <button class="color-btn" data-color="#add8e6" style="background: #add8e6;"></button>
+                        <button class="color-btn" data-color="#ffffe0" style="background: #ffffe0;"></button>
+                        <button class="color-btn" data-color="#90ee90" style="background: #90ee90;"></button>
+                        <button class="color-btn" data-color="#dda0dd" style="background: #dda0dd;"></button>
+                        <button class="color-btn" data-color="#d2b48c" style="background: #d2b48c;"></button>
+                        <button class="color-btn" data-color="#8b0000" style="background: #8b0000;"></button>
+                        <button class="color-btn" data-color="#ffffff" style="background: #ffffff; border: 1px solid #ddd;"></button>
+                        <button class="color-btn" data-color="#000000" style="background: #000000;"></button>
+                        <button class="color-btn" data-color="#ff69b4" style="background: radial-gradient(circle, #ff69b4, #ff1493);"></button>
+                        <button class="color-btn" data-color="gingham-pink" style="background: repeating-linear-gradient(45deg, #ffb6c1, #ffb6c1 5px, #ffffff 5px, #ffffff 10px);"></button>
+                        <button class="color-btn" data-color="gingham-blue" style="background: repeating-linear-gradient(45deg, #add8e6, #add8e6 5px, #ffffff 5px, #ffffff 10px);"></button>
+                        <button class="color-btn" data-color="checkered" style="background: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%); background-size: 10px 10px;"></button>
+                        <button class="color-btn" data-color="dots" style="background: radial-gradient(circle, #333 20%, transparent 20%), radial-gradient(circle, #333 20%, transparent 20%); background-size: 10px 10px; background-position: 0 0, 5px 5px;"></button>
+                        <button class="color-btn" data-color="hearts" style="background: #ffc0cb; position: relative;"></button>
+                        <button class="color-btn" data-color="polka" style="background: #000; background-image: radial-gradient(#fff 20%, transparent 20%); background-size: 8px 8px;"></button>
+                        <button class="color-btn" data-color="gingham-red" style="background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 5px, #ffffff 5px, #ffffff 10px);"></button>
+                        <button class="color-btn" data-color="red-gingham" style="background: repeating-linear-gradient(0deg, #dc143c, #dc143c 8px, #fff 8px, #fff 16px), repeating-linear-gradient(90deg, #dc143c, #dc143c 8px, #fff 8px, #fff 16px);"></button>
+                    </div>
+                </div>
+
+                <!-- Photo Shape -->
+                <div class="customize-group">
+                    <h4>Photo Shape</h4>
+                    <div class="shape-options">
+                        <button class="shape-btn" data-shape="square" title="Square">⬜</button>
+                        <button class="shape-btn selected" data-shape="rounded" title="Rounded">▢</button>
+                        <button class="shape-btn" data-shape="circle" title="Circle">⭕</button>
+                        <button class="shape-btn" data-shape="heart" title="Heart">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Stickers -->
+                <div class="customize-group">
+                    <h4>Stickers</h4>
+                    <div class="stickers-grid">
+                        <button class="sticker-btn" data-sticker="none">🚫</button>
+                        <button class="sticker-btn" data-sticker="ghost">👻</button>
+                        <button class="sticker-btn" data-sticker="clover">🍀</button>
+                        <button class="sticker-btn" data-sticker="kiss">💋</button>
+                        <button class="sticker-btn" data-sticker="heart">💗</button>
+                        <button class="sticker-btn" data-sticker="bow">🎀</button>
+                        <button class="sticker-btn" data-sticker="star">⭐</button>
+                        <button class="sticker-btn" data-sticker="love">🤍</button>
+                        <button class="sticker-btn" data-sticker="unicorn">🦄</button>
+                        <button class="sticker-btn" data-sticker="sparkle">✨</button>
+                        <button class="sticker-btn" data-sticker="music">🎵</button>
+                        <button class="sticker-btn" data-sticker="heart2">💕</button>
+                        <button class="sticker-btn" data-sticker="bear">🐻</button>
+                        <button class="sticker-btn" data-sticker="koala">🐨</button>
+                        <button class="sticker-btn" data-sticker="panda">🐼</button>
+                        <button class="sticker-btn" data-sticker="frog">🐸</button>
+                        <button class="sticker-btn" data-sticker="flower">🌸</button>
+                        <button class="sticker-btn" data-sticker="cherry">🍒</button>
+                        <button class="sticker-btn" data-sticker="cake">🎂</button>
+                        <button class="sticker-btn" data-sticker="pizza">🍕</button>
+                        <button class="sticker-btn" data-sticker="crown">👑</button>
+                        <button class="sticker-btn" data-sticker="fire">🔥</button>
+                        <button class="sticker-btn" data-sticker="rainbow">🌈</button>
+                        <button class="sticker-btn" data-sticker="moon">🌙</button>
+                    </div>
+                </div>
+
+                <!-- Logo -->
+                <div class="customize-group">
+                    <h4>Logo:</h4>
+                    <div class="logo-options">
+                        <button class="logo-btn selected" data-logo="ENG">ENG</button>
+                        <button class="logo-btn" data-logo="KOR">KOR</button>
+                        <button class="logo-btn" data-logo="CN">CN</button>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="addDate" checked>
+                            <span>Add Date</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="addTime">
+                            <span>Add Time</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="customize-actions">
+                <button class="btn-retake" onclick="retakePhotos()">Retake</button>
+                <button class="btn-download" onclick="downloadCustomized()">Download</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -928,6 +1280,16 @@
         let maxPhotos = 3; // Will be updated based on layout
         let countdownInterval = null;
         let currentFilter = 'none'; // Current selected filter
+        
+        // Customization options
+        let customOptions = {
+            frameColor: 'rainbow',
+            photoShape: 'rounded',
+            sticker: 'none',
+            logo: 'ENG',
+            addDate: true,
+            addTime: false
+        };
 
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -948,7 +1310,9 @@
             'layoutB': 4,
             'layoutC': 2,
             'layoutD': 6,
-            'horizontal': 3
+            'horizontal': 3,
+            'layoutE': 3,
+            'layoutF': 4
         };
 
         // Filter selection and application
@@ -1248,14 +1612,16 @@
 
         async function generatePreview() {
             const previewSection = document.getElementById('previewSection');
+            const customizeSection = document.getElementById('customizeSection');
             const previewCanvas = document.getElementById('previewCanvas');
             const layout = document.querySelector('input[name="layout"]:checked').value;
 
             // Draw the photo strip on the preview canvas
             await drawPhotoStripOnCanvas(previewCanvas, layout);
             
-            // Show the preview section
+            // Show the preview and customize sections
             previewSection.classList.add('active');
+            customizeSection.classList.add('active');
             
             // Scroll to preview
             setTimeout(() => {
@@ -1301,22 +1667,82 @@
                 // Mixed layout (collage style)
                 targetCanvas.width = (photoWidth * 2) + photoPadding + (padding * 2) + (borderWidth * 2);
                 targetCanvas.height = (photoHeight * 2) + photoPadding + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
+            } else if (layout === 'layoutE') {
+                // Heart-framed vertical strip (3 photos)
+                targetCanvas.width = photoWidth + (padding * 2) + (borderWidth * 2) + 60; // Extra space for heart frames
+                targetCanvas.height = (photoHeight * 3) + (photoPadding * 3) + (padding * 2) + headerSize + footerSize + (borderWidth * 2) + 90; // Extra height for decorations
+            } else if (layout === 'layoutF') {
+                // Classic photostrip (4 photos)
+                targetCanvas.width = photoWidth + (padding * 2) + (borderWidth * 2) + 30;
+                targetCanvas.height = (photoHeight * 4) + (photoPadding * 3) + (padding * 2) + 100 + (borderWidth * 2);
             } else {
                 // Horizontal layout - wider to fit 3 photos side by side
                 targetCanvas.width = (photoWidth * 3) + (photoPadding * 2) + (padding * 2) + (borderWidth * 2);
                 targetCanvas.height = photoHeight + (padding * 2) + headerSize + footerSize + (borderWidth * 2);
             }
 
-            // Purple aesthetic gradient background
-            const gradient = (layout === 'horizontal')
-                ? stripCtx.createLinearGradient(0, 0, targetCanvas.width, 0)
-                : stripCtx.createLinearGradient(0, 0, 0, targetCanvas.height);
-            gradient.addColorStop(0, '#e0c3fc');
-            gradient.addColorStop(0.33, '#c3a6f5');
-            gradient.addColorStop(0.66, '#a78bfa');
-            gradient.addColorStop(1, '#8b5cf6');
-            stripCtx.fillStyle = gradient;
-            stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+            // Apply custom background color/pattern
+            if (customOptions.frameColor === 'rainbow') {
+                const gradient = (layout === 'horizontal')
+                    ? stripCtx.createLinearGradient(0, 0, targetCanvas.width, 0)
+                    : stripCtx.createLinearGradient(0, 0, 0, targetCanvas.height);
+                gradient.addColorStop(0, '#e0c3fc');
+                gradient.addColorStop(0.33, '#c3a6f5');
+                gradient.addColorStop(0.66, '#a78bfa');
+                gradient.addColorStop(1, '#8b5cf6');
+                stripCtx.fillStyle = gradient;
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+            } else if (customOptions.frameColor.startsWith('gingham')) {
+                // Gingham pattern
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                const patternColor = customOptions.frameColor.includes('pink') ? '#ffb6c1' : 
+                                    customOptions.frameColor.includes('blue') ? '#add8e6' : '#ff6b6b';
+                stripCtx.fillStyle = patternColor;
+                for (let y = 0; y < targetCanvas.height; y += 20) {
+                    for (let x = 0; x < targetCanvas.width; x += 20) {
+                        if ((Math.floor(x / 20) + Math.floor(y / 20)) % 2 === 0) {
+                            stripCtx.fillRect(x, y, 20, 20);
+                        }
+                    }
+                }
+            } else if (customOptions.frameColor === 'checkered') {
+                stripCtx.fillStyle = '#000000';
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                stripCtx.fillStyle = '#ffffff';
+                for (let y = 0; y < targetCanvas.height; y += 20) {
+                    for (let x = 0; x < targetCanvas.width; x += 20) {
+                        if ((Math.floor(x / 20) + Math.floor(y / 20)) % 2 === 0) {
+                            stripCtx.fillRect(x, y, 20, 20);
+                        }
+                    }
+                }
+            } else if (customOptions.frameColor === 'dots' || customOptions.frameColor === 'polka') {
+                stripCtx.fillStyle = customOptions.frameColor === 'polka' ? '#000000' : '#ffffff';
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                stripCtx.fillStyle = customOptions.frameColor === 'polka' ? '#ffffff' : '#333333';
+                for (let y = 10; y < targetCanvas.height; y += 20) {
+                    for (let x = 10; x < targetCanvas.width; x += 20) {
+                        stripCtx.beginPath();
+                        stripCtx.arc(x, y, 4, 0, Math.PI * 2);
+                        stripCtx.fill();
+                    }
+                }
+            } else if (customOptions.frameColor === 'red-gingham') {
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+                stripCtx.fillStyle = '#dc143c';
+                for (let y = 0; y < targetCanvas.height; y += 16) {
+                    stripCtx.fillRect(0, y, targetCanvas.width, 8);
+                }
+                for (let x = 0; x < targetCanvas.width; x += 16) {
+                    stripCtx.fillRect(x, 0, 8, targetCanvas.height);
+                }
+            } else {
+                // Solid color
+                stripCtx.fillStyle = customOptions.frameColor;
+                stripCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+            }
 
             // Outer border
             stripCtx.strokeStyle = '#ffffff';
@@ -1354,13 +1780,34 @@
                 stripCtx.shadowBlur = 8;
                 stripCtx.shadowOffsetX = 2;
                 stripCtx.shadowOffsetY = 2;
-                stripCtx.fillText('💜 Memories 💜', x, y);
+                
+                // Use custom logo or default
+                const logoText = customOptions.logo === 'ENG' ? '💜 Memories 💜' :
+                                customOptions.logo === 'KOR' ? '💜 추억 💜' :
+                                customOptions.logo === 'CN' ? '💜 回忆 💜' :
+                                '💜 Memories 💜';
+                stripCtx.fillText(logoText, x, y);
 
                 stripCtx.shadowBlur = 0;
                 stripCtx.shadowOffsetX = 0;
                 stripCtx.shadowOffsetY = 0;
                 stripCtx.font = '16px Arial';
-                stripCtx.fillText(date, x, y + 25);
+                
+                // Show date and/or time based on options
+                let dateTimeText = '';
+                if (customOptions.addDate) {
+                    dateTimeText = date;
+                }
+                if (customOptions.addTime) {
+                    const time = new Date().toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                    });
+                    dateTimeText += (dateTimeText ? ' ' : '') + time;
+                }
+                if (dateTimeText) {
+                    stripCtx.fillText(dateTimeText, x, y + 25);
+                }
             }
 
             // Draw footer for all layouts
@@ -1388,8 +1835,59 @@
                 stripCtx.shadowOffsetX = 0;
                 stripCtx.shadowOffsetY = 0;
 
-                // Draw photo
+                // Draw photo with shape
+                stripCtx.save();
+                
+                if (customOptions.photoShape === 'circle') {
+                    stripCtx.beginPath();
+                    stripCtx.arc(x + width / 2, y + height / 2, Math.min(width, height) / 2, 0, Math.PI * 2);
+                    stripCtx.clip();
+                } else if (customOptions.photoShape === 'rounded') {
+                    const radius = 20;
+                    stripCtx.beginPath();
+                    stripCtx.moveTo(x + radius, y);
+                    stripCtx.lineTo(x + width - radius, y);
+                    stripCtx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                    stripCtx.lineTo(x + width, y + height - radius);
+                    stripCtx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                    stripCtx.lineTo(x + radius, y + height);
+                    stripCtx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                    stripCtx.lineTo(x, y + radius);
+                    stripCtx.quadraticCurveTo(x, y, x + radius, y);
+                    stripCtx.clip();
+                } else if (customOptions.photoShape === 'heart') {
+                    // Heart shape clipping
+                    const heartWidth = width;
+                    const heartHeight = height;
+                    stripCtx.beginPath();
+                    stripCtx.moveTo(x + heartWidth / 2, y + heartHeight / 4);
+                    stripCtx.quadraticCurveTo(x + heartWidth / 2, y, x + heartWidth / 4, y);
+                    stripCtx.quadraticCurveTo(x, y, x, y + heartHeight / 4);
+                    stripCtx.quadraticCurveTo(x, y + heartHeight / 2, x + heartWidth / 2, y + heartHeight * 0.85);
+                    stripCtx.quadraticCurveTo(x + heartWidth, y + heartHeight / 2, x + heartWidth, y + heartHeight / 4);
+                    stripCtx.quadraticCurveTo(x + heartWidth, y, x + heartWidth * 0.75, y);
+                    stripCtx.quadraticCurveTo(x + heartWidth / 2, y, x + heartWidth / 2, y + heartHeight / 4);
+                    stripCtx.clip();
+                }
+                
                 stripCtx.drawImage(img, x, y, width, height);
+                stripCtx.restore();
+
+                // Add sticker if selected
+                if (customOptions.sticker && customOptions.sticker !== 'none') {
+                    const stickerMap = {
+                        'ghost': '👻', 'clover': '🍀', 'kiss': '💋', 'heart': '💗',
+                        'bow': '🎀', 'star': '⭐', 'love': '🤍', 'unicorn': '🦄',
+                        'sparkle': '✨', 'music': '🎵', 'heart2': '💕', 'bear': '🐻',
+                        'koala': '🐨', 'panda': '🐼', 'frog': '🐸', 'flower': '🌸',
+                        'cherry': '🍒', 'cake': '🎂', 'pizza': '🍕', 'crown': '👑',
+                        'fire': '🔥', 'rainbow': '🌈', 'moon': '🌙'
+                    };
+                    
+                    stripCtx.font = '40px Arial';
+                    stripCtx.textAlign = 'right';
+                    stripCtx.fillText(stickerMap[customOptions.sticker] || '', x + width - 10, y + 50);
+                }
 
                 // Photo number
                 stripCtx.fillStyle = '#666';
@@ -1503,7 +2001,7 @@
                 const footerY = bottomY + (smallHeight * 2) + photoPadding + 30;
                 drawFooter(targetCanvas.width / 2, footerY);
 
-            } else {
+            } else if (layout === 'horizontal') {
                 // HORIZONTAL LAYOUT - Clean horizontal strip with header on top
                 drawHeader(targetCanvas.width / 2, borderWidth + 50);
                 
@@ -1546,7 +2044,208 @@
                 // Footer section at the bottom
                 const footerY = startY + photoHeight + 60;
                 drawFooter(targetCanvas.width / 2, footerY);
+
+            } else if (layout === 'layoutE') {
+                // LAYOUT E: Heart-framed vertical strip
+                drawHeader(targetCanvas.width / 2, borderWidth + 50);
+                
+                const startY = borderWidth + headerSize;
+                const heartSpacing = 10;
+                
+                loadedImages.slice(0, 3).forEach((img, index) => {
+                    const y = startY + (index * (photoHeight + photoPadding + 30));
+                    const x = borderWidth + padding;
+                    
+                    // Draw heart frame (simplified as rounded border)
+                    stripCtx.save();
+                    
+                    // Pink heart outline
+                    stripCtx.strokeStyle = '#ff69b4';
+                    stripCtx.lineWidth = 8;
+                    stripCtx.shadowColor = 'rgba(255, 105, 180, 0.4)';
+                    stripCtx.shadowBlur = 15;
+                    
+                    // Draw heart shape background
+                    const heartWidth = photoWidth + 40;
+                    const heartHeight = photoHeight + 40;
+                    const heartX = x - 20;
+                    const heartY = y - 20;
+                    
+                    stripCtx.beginPath();
+                    stripCtx.moveTo(heartX + heartWidth / 2, heartY + heartHeight / 4);
+                    stripCtx.quadraticCurveTo(heartX + heartWidth / 2, heartY, heartX + heartWidth / 4, heartY);
+                    stripCtx.quadraticCurveTo(heartX, heartY, heartX, heartY + heartHeight / 4);
+                    stripCtx.quadraticCurveTo(heartX, heartY + heartHeight / 2, heartX + heartWidth / 2, heartY + heartHeight * 0.85);
+                    stripCtx.quadraticCurveTo(heartX + heartWidth, heartY + heartHeight / 2, heartX + heartWidth, heartY + heartHeight / 4);
+                    stripCtx.quadraticCurveTo(heartX + heartWidth, heartY, heartX + heartWidth * 0.75, heartY);
+                    stripCtx.quadraticCurveTo(heartX + heartWidth / 2, heartY, heartX + heartWidth / 2, heartY + heartHeight / 4);
+                    stripCtx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    stripCtx.fill();
+                    stripCtx.stroke();
+                    
+                    stripCtx.restore();
+                    
+                    // Reset shadows and draw photo
+                    stripCtx.shadowBlur = 0;
+                    stripCtx.shadowOffsetX = 0;
+                    stripCtx.shadowOffsetY = 0;
+                    
+                    // Clip to circle
+                    stripCtx.save();
+                    stripCtx.beginPath();
+                    stripCtx.arc(x + photoWidth / 2, y + photoHeight / 2, Math.min(photoWidth, photoHeight) / 2 - 10, 0, Math.PI * 2);
+                    stripCtx.clip();
+                    stripCtx.drawImage(img, x, y, photoWidth, photoHeight);
+                    stripCtx.restore();
+                    
+                    // Add decorative sparkles
+                    stripCtx.fillStyle = '#ff69b4';
+                    stripCtx.font = '20px Arial';
+                    stripCtx.fillText('✨', x - 15, y + 20);
+                    stripCtx.fillText('✨', x + photoWidth + 5, y + 20);
+                });
+
+                const footerY = startY + (photoHeight + photoPadding + 30) * 3 + 20;
+                drawFooter(targetCanvas.width / 2, footerY);
+
+            } else if (layout === 'layoutF') {
+                // LAYOUT F: Classic photostrip (4 photos, simple black borders)
+                // No header, just date at top
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.font = '14px Arial';
+                stripCtx.textAlign = 'center';
+                const date = new Date().toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                stripCtx.fillText(date, targetCanvas.width / 2, borderWidth + 30);
+                
+                const startY = borderWidth + 60;
+                const photoSpacing = 10;
+                
+                loadedImages.slice(0, 4).forEach((img, index) => {
+                    const y = startY + (index * (photoHeight + photoSpacing));
+                    const x = borderWidth + padding;
+                    
+                    // Simple white frame
+                    stripCtx.fillStyle = '#ffffff';
+                    stripCtx.fillRect(x - 15, y - 15, photoWidth + 30, photoHeight + 30);
+                    
+                    // Draw photo
+                    stripCtx.drawImage(img, x, y, photoWidth, photoHeight);
+                    
+                    // Black border
+                    stripCtx.strokeStyle = '#000000';
+                    stripCtx.lineWidth = 3;
+                    stripCtx.strokeRect(x, y, photoWidth, photoHeight);
+                });
+
+                // Footer at bottom
+                stripCtx.fillStyle = '#ffffff';
+                stripCtx.font = '12px Arial';
+                stripCtx.textAlign = 'center';
+                const footerY = startY + (photoHeight + photoSpacing) * 4 + 20;
+                stripCtx.fillText('PhotoBooth Memories', targetCanvas.width / 2, footerY);
             }
+        }
+
+        // Customization event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Frame color selection
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    customOptions.frameColor = this.dataset.color;
+                    updatePreview();
+                });
+            });
+
+            // Photo shape selection
+            document.querySelectorAll('.shape-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    customOptions.photoShape = this.dataset.shape;
+                    updatePreview();
+                });
+            });
+
+            // Sticker selection
+            document.querySelectorAll('.sticker-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.sticker-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    customOptions.sticker = this.dataset.sticker;
+                    updatePreview();
+                });
+            });
+
+            // Logo selection
+            document.querySelectorAll('.logo-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.logo-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    customOptions.logo = this.dataset.logo;
+                    updatePreview();
+                });
+            });
+
+            // Date checkbox
+            document.getElementById('addDate')?.addEventListener('change', function() {
+                customOptions.addDate = this.checked;
+                updatePreview();
+            });
+
+            // Time checkbox
+            document.getElementById('addTime')?.addEventListener('change', function() {
+                customOptions.addTime = this.checked;
+                updatePreview();
+            });
+        });
+
+        async function updatePreview() {
+            const previewCanvas = document.getElementById('previewCanvas');
+            const layout = document.querySelector('input[name="layout"]:checked').value;
+            await drawPhotoStripOnCanvas(previewCanvas, layout);
+        }
+
+        function retakePhotos() {
+            // Hide customize and preview sections
+            document.getElementById('customizeSection').classList.remove('active');
+            document.getElementById('previewSection').classList.remove('active');
+            
+            // Reset photos
+            resetPhotos();
+            
+            // Scroll back to camera
+            document.getElementById('cameraSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function downloadCustomized() {
+            if (photos.length === 0) {
+                showMessage('No photos to download!', 'error');
+                return;
+            }
+
+            // Get selected layout
+            const layout = document.querySelector('input[name="layout"]:checked').value;
+
+            // Create a temporary canvas for download
+            const downloadCanvas = document.createElement('canvas');
+            
+            // Draw the photo strip with current customizations
+            await drawPhotoStripOnCanvas(downloadCanvas, layout);
+
+            // Download
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.download = `photobooth-${layout}-${Date.now()}.png`;
+                link.href = downloadCanvas.toDataURL('image/png');
+                link.click();
+                showMessage(`Photo strip downloaded successfully! 💜`, 'success');
+            }, 300);
         }
 
         async function downloadStrip() {
