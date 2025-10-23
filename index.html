@@ -316,21 +316,27 @@
         /* Main Content Grid */
         .photobooth-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 25px;
             margin-bottom: 30px;
         }
 
         .left-column {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
 
         .right-column {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
+        }
+
+        .selection-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
         .camera-section {
@@ -399,7 +405,7 @@
         .layout-selector {
             text-align: center;
             margin-bottom: 0;
-            padding: 25px;
+            padding: 20px;
             background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -407,15 +413,15 @@
 
         .layout-selector h3 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 20px;
+            margin-bottom: 12px;
+            font-size: 18px;
             font-weight: 600;
         }
 
         .layout-options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
             max-width: 100%;
             margin: 0 auto;
         }
@@ -424,8 +430,8 @@
             position: relative;
             cursor: pointer;
             border: 3px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 10px;
             background: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             touch-action: manipulation;
@@ -435,8 +441,8 @@
 
         .layout-option:hover,
         .layout-option:active {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.25);
             border-color: #667eea;
         }
 
@@ -465,28 +471,28 @@
 
         .layout-preview {
             border: 2px solid #e8e8e8;
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 8px;
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 6px;
             background: #fafafa;
-            min-height: 95px;
+            min-height: 80px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .layout-preview-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .layout-a .layout-preview-box {
-            width: 75%;
-            height: 22px;
+            width: 70%;
+            height: 18px;
         }
 
         .layout-b .layout-preview {
@@ -496,12 +502,12 @@
 
         .layout-b .layout-preview-box {
             width: 47%;
-            height: 38px;
+            height: 32px;
         }
 
         .layout-c .layout-preview-box {
-            width: 75%;
-            height: 38px;
+            width: 70%;
+            height: 32px;
         }
 
         .layout-d .layout-preview {
@@ -512,7 +518,7 @@
 
         .layout-d .layout-preview-box {
             width: 100%;
-            height: 28px;
+            height: 22px;
         }
 
         .layout-d .layout-preview-box:nth-child(5),
@@ -520,18 +526,47 @@
             grid-column: span 1;
         }
 
+        /* Heart shape for layout preview */
+        .heart-shape {
+            width: 24px !important;
+            height: 24px !important;
+            position: relative;
+            transform: rotate(-45deg);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        .heart-shape::before,
+        .heart-shape::after {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .heart-shape::before {
+            top: -12px;
+            left: 0;
+        }
+
+        .heart-shape::after {
+            left: 12px;
+            top: 0;
+        }
+
         .layout-option label {
             display: block;
-            font-size: 14px;
+            font-size: 12px;
             color: #555;
             font-weight: 600;
             cursor: pointer;
         }
 
         .layout-note {
-            font-size: 11px;
+            font-size: 10px;
             color: #999;
-            margin-top: 4px;
+            margin-top: 3px;
             font-weight: 400;
         }
 
@@ -539,7 +574,7 @@
         .filter-selector {
             text-align: center;
             margin-bottom: 0;
-            padding: 25px;
+            padding: 20px;
             background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
             border-radius: 20px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -547,15 +582,15 @@
 
         .filter-selector h3 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 20px;
+            margin-bottom: 12px;
+            font-size: 18px;
             font-weight: 600;
         }
 
         .filter-options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
             max-width: 100%;
             margin: 0 auto;
         }
@@ -564,7 +599,7 @@
             cursor: pointer;
             border: 3px solid #e0e0e0;
             border-radius: 12px;
-            padding: 10px;
+            padding: 8px;
             background: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
@@ -575,8 +610,8 @@
 
         .filter-option:hover,
         .filter-option:active {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.25);
             border-color: #667eea;
         }
 
@@ -587,9 +622,9 @@
         }
 
         .filter-preview {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 8px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 6px;
             border-radius: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -597,7 +632,7 @@
 
         .filter-option label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             color: #555;
             font-weight: 600;
             cursor: pointer;
@@ -1088,6 +1123,11 @@
                 gap: 20px;
             }
 
+            .selection-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
             .container {
                 padding: 15px;
                 max-width: 100%;
@@ -1132,13 +1172,13 @@
             /* Filter options mobile */
             .filter-options {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+                gap: 8px;
             }
 
             /* Layout selector mobile */
             .layout-options {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                gap: 10px;
             }
 
             /* Customize section mobile */
@@ -1312,7 +1352,7 @@
 
         <!-- Main Grid Layout -->
         <div class="photobooth-grid">
-            <!-- Left Column: Camera & Photos -->
+            <!-- Camera & Controls -->
             <div class="left-column">
                 <div class="camera-section">
                     <video id="video" autoplay playsinline></video>
@@ -1331,8 +1371,8 @@
                 <div class="photos-grid" id="photosGrid"></div>
             </div>
 
-            <!-- Right Column: Filter & Layout -->
-            <div class="right-column">
+            <!-- Filter & Layout Selection -->
+            <div class="selection-row">
                 <div class="filter-selector">
                     <h3>🎨 Choose a Filter</h3>
                     
@@ -1422,9 +1462,9 @@
                 <div class="layout-option">
                     <input type="radio" name="layout" value="horizontal" id="layoutHorizontal">
                     <div class="layout-preview" style="flex-direction: row;">
-                        <div class="layout-preview-box" style="width: 30%; height: 60px;"></div>
-                        <div class="layout-preview-box" style="width: 30%; height: 60px;"></div>
-                        <div class="layout-preview-box" style="width: 30%; height: 60px;"></div>
+                        <div class="layout-preview-box" style="width: 30%; height: 50px;"></div>
+                        <div class="layout-preview-box" style="width: 30%; height: 50px;"></div>
+                        <div class="layout-preview-box" style="width: 30%; height: 50px;"></div>
                     </div>
                     <label for="layoutHorizontal">Horizontal</label>
                     <div class="layout-note">3 photos side by side</div>
@@ -1433,9 +1473,9 @@
                 <div class="layout-option layout-e">
                     <input type="radio" name="layout" value="layoutE" id="layoutE">
                     <div class="layout-preview">
-                        <div class="layout-preview-box" style="width: 80%; height: 25px; border-radius: 50%;"></div>
-                        <div class="layout-preview-box" style="width: 80%; height: 25px; border-radius: 50%;"></div>
-                        <div class="layout-preview-box" style="width: 80%; height: 25px; border-radius: 50%;"></div>
+                        <div class="layout-preview-box heart-shape"></div>
+                        <div class="layout-preview-box heart-shape"></div>
+                        <div class="layout-preview-box heart-shape"></div>
                     </div>
                     <label for="layoutE">Heart Frames</label>
                     <div class="layout-note">3 photos with hearts</div>
@@ -1444,10 +1484,10 @@
                 <div class="layout-option layout-f">
                     <input type="radio" name="layout" value="layoutF" id="layoutF">
                     <div class="layout-preview">
-                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
-                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
-                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
-                        <div class="layout-preview-box" style="width: 70%; height: 30px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 18px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 18px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 18px;"></div>
+                        <div class="layout-preview-box" style="width: 70%; height: 18px;"></div>
                     </div>
                     <label for="layoutF">Classic Strip</label>
                     <div class="layout-note">4 photos classic</div>
