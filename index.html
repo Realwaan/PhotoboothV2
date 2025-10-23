@@ -1957,7 +1957,7 @@
             }
 
             // Helper function to draw sticker on photo
-            function drawSticker(x, y, width, height) {
+            function drawSticker(x, y, width, height, photoIndex = 0) {
                 if (customOptions.sticker && customOptions.sticker !== 'none') {
                     const stickerMap = {
                         'ghost': '👻', 'clover': '🍀', 'kiss': '💋', 'heart': '💗',
@@ -1968,9 +1968,35 @@
                         'fire': '🔥', 'rainbow': '🌈', 'moon': '🌙'
                     };
                     
-                    stripCtx.font = '40px Arial';
-                    stripCtx.textAlign = 'right';
-                    stripCtx.fillText(stickerMap[customOptions.sticker] || '', x + width - 10, y + 50);
+                    const sticker = stickerMap[customOptions.sticker];
+                    if (!sticker) return;
+                    
+                    // Create pseudo-random positions based on photo index for consistency
+                    const positions = [
+                        { xOffset: -30, yOffset: -20, rotation: -15 },  // Top left outside
+                        { xOffset: width + 10, yOffset: -20, rotation: 15 },  // Top right outside
+                        { xOffset: -30, yOffset: height - 20, rotation: 15 },  // Bottom left outside
+                        { xOffset: width + 5, yOffset: height - 20, rotation: -15 },  // Bottom right outside
+                        { xOffset: width - 50, yOffset: 20, rotation: 10 },  // Top right inside
+                        { xOffset: 20, yOffset: 20, rotation: -10 }  // Top left inside
+                    ];
+                    
+                    const pos = positions[photoIndex % positions.length];
+                    
+                    stripCtx.save();
+                    stripCtx.translate(x + pos.xOffset, y + pos.yOffset);
+                    stripCtx.rotate((pos.rotation * Math.PI) / 180);
+                    stripCtx.font = '35px Arial';
+                    stripCtx.textAlign = 'center';
+                    stripCtx.textBaseline = 'middle';
+                    
+                    // Add white outline for sticker to stand out
+                    stripCtx.strokeStyle = '#ffffff';
+                    stripCtx.lineWidth = 3;
+                    stripCtx.strokeText(sticker, 0, 0);
+                    stripCtx.fillText(sticker, 0, 0);
+                    
+                    stripCtx.restore();
                 }
             }
 
@@ -1996,7 +2022,7 @@
                 stripCtx.restore();
 
                 // Add sticker
-                drawSticker(x, y, width, height);
+                drawSticker(x, y, width, height, number - 1);
 
                 // Photo number
                 stripCtx.fillStyle = '#666';
@@ -2104,7 +2130,7 @@
                             stripCtx.restore();
                             
                             // Add sticker
-                            drawSticker(x, y, smallWidth, smallHeight);
+                            drawSticker(x, y, smallWidth, smallHeight, photoIndex);
                             
                             // Add photo number
                             stripCtx.fillStyle = '#666';
@@ -2150,7 +2176,7 @@
                     stripCtx.restore();
                     
                     // Add sticker
-                    drawSticker(x, y, photoWidth, photoHeight);
+                    drawSticker(x, y, photoWidth, photoHeight, index);
 
                     // Photo number in polaroid bottom space
                     stripCtx.fillStyle = '#666';
@@ -2220,7 +2246,7 @@
                     stripCtx.restore();
                     
                     // Add sticker
-                    drawSticker(x, y, photoWidth, photoHeight);
+                    drawSticker(x, y, photoWidth, photoHeight, index);
                     
                     // Add decorative sparkles
                     stripCtx.fillStyle = '#ff69b4';
@@ -2263,7 +2289,7 @@
                     stripCtx.restore();
                     
                     // Add sticker
-                    drawSticker(x, y, photoWidth, photoHeight);
+                    drawSticker(x, y, photoWidth, photoHeight, index);
                     
                     // Black border
                     stripCtx.strokeStyle = '#000000';
