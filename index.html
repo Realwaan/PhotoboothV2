@@ -267,10 +267,10 @@
             display: none;
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 900px;
-            width: 100%;
+            max-width: 1200px;
+            width: 95%;
             margin: 40px auto;
         }
 
@@ -282,30 +282,55 @@
             text-align: center;
             color: #333;
             margin-bottom: 10px;
-            font-size: 32px;
+            font-size: 36px;
+            font-weight: 700;
         }
 
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .back-button {
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
             color: #666;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 14px;
-            margin-bottom: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
             transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .back-button:hover {
-            background: #e0e0e0;
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Main Content Grid */
+        .photobooth-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
 
         .camera-section {
@@ -313,8 +338,9 @@
             background: #000;
             border-radius: 15px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 0;
             aspect-ratio: 4/3;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         #video {
@@ -372,7 +398,7 @@
 
         .layout-selector {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 0;
             padding: 25px;
             background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
             border-radius: 20px;
@@ -381,16 +407,16 @@
 
         .layout-selector h3 {
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 20px;
             font-weight: 600;
         }
 
         .layout-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 20px;
-            max-width: 850px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
@@ -399,7 +425,7 @@
             cursor: pointer;
             border: 3px solid #e0e0e0;
             border-radius: 15px;
-            padding: 15px;
+            padding: 12px;
             background: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             touch-action: manipulation;
@@ -409,8 +435,8 @@
 
         .layout-option:hover,
         .layout-option:active {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
             border-color: #667eea;
         }
 
@@ -440,15 +466,15 @@
         .layout-preview {
             border: 2px solid #e8e8e8;
             border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
             background: #fafafa;
-            min-height: 110px;
+            min-height: 95px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -459,8 +485,8 @@
         }
 
         .layout-a .layout-preview-box {
-            width: 80%;
-            height: 25px;
+            width: 75%;
+            height: 22px;
         }
 
         .layout-b .layout-preview {
@@ -469,13 +495,13 @@
         }
 
         .layout-b .layout-preview-box {
-            width: 48%;
-            height: 45px;
+            width: 47%;
+            height: 38px;
         }
 
         .layout-c .layout-preview-box {
-            width: 80%;
-            height: 45px;
+            width: 75%;
+            height: 38px;
         }
 
         .layout-d .layout-preview {
@@ -486,7 +512,7 @@
 
         .layout-d .layout-preview-box {
             width: 100%;
-            height: 35px;
+            height: 28px;
         }
 
         .layout-d .layout-preview-box:nth-child(5),
@@ -512,7 +538,7 @@
         /* Filter Selector */
         .filter-selector {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 0;
             padding: 25px;
             background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
             border-radius: 20px;
@@ -521,24 +547,24 @@
 
         .filter-selector h3 {
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-size: 20px;
             font-weight: 600;
         }
 
         .filter-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 15px;
-            max-width: 850px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
         .filter-option {
             cursor: pointer;
             border: 3px solid #e0e0e0;
-            border-radius: 15px;
-            padding: 12px;
+            border-radius: 12px;
+            padding: 10px;
             background: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
@@ -549,29 +575,29 @@
 
         .filter-option:hover,
         .filter-option:active {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
             border-color: #667eea;
         }
 
         .filter-option.selected {
             border-color: #667eea;
             background: #fafbff;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
         }
 
         .filter-preview {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 10px;
-            border-radius: 12px;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 8px;
+            border-radius: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .filter-option label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             color: #555;
             font-weight: 600;
             cursor: pointer;
@@ -1035,7 +1061,7 @@
             }
 
             h1 {
-                font-size: 22px;
+                font-size: 24px;
                 padding: 10px;
             }
 
@@ -1051,6 +1077,15 @@
 
             .nav-links {
                 display: none;
+            }
+
+            .photobooth-container {
+                padding: 20px;
+            }
+
+            .photobooth-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .container {
@@ -1096,14 +1131,14 @@
 
             /* Filter options mobile */
             .filter-options {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
 
             /* Layout selector mobile */
             .layout-options {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
+                gap: 12px;
             }
 
             /* Customize section mobile */
@@ -1270,58 +1305,71 @@
     <div class="photobooth-container" id="photoboothApp">
         <button class="back-button" onclick="showLanding()">← Back to Home</button>
         <h1>📸 Missing Alegres</h1>
-        <p class="subtitle">Capture 3 amazing photos!</p>
+        <p class="subtitle">Capture amazing photos and customize your photostrip!</p>
 
         <div id="messageContainer"></div>
-
         <div class="photo-count" id="photoCount">Photos captured: 0 / 3</div>
 
-        <div class="camera-section">
-            <video id="video" autoplay playsinline></video>
-            <canvas id="canvas"></canvas>
-            <div class="countdown-overlay" id="countdown"></div>
-            <div class="flash-effect" id="flash"></div>
-        </div>
+        <!-- Main Grid Layout -->
+        <div class="photobooth-grid">
+            <!-- Left Column: Camera & Photos -->
+            <div class="left-column">
+                <div class="camera-section">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas"></canvas>
+                    <div class="countdown-overlay" id="countdown"></div>
+                    <div class="flash-effect" id="flash"></div>
+                </div>
 
-        <div class="filter-selector">
-            <h3>🎨 Choose a Filter</h3>
-            <p class="subtitle" style="margin-bottom: 15px;">Add some style to your photos!</p>
-            
-            <div class="filter-options">
-                <div class="filter-option selected" onclick="selectFilter('none')">
-                    <div class="filter-preview" style="filter: none;"></div>
-                    <label>Normal</label>
+                <div class="controls">
+                    <button class="btn-primary" id="startBtn" onclick="startCamera()">Start Camera</button>
+                    <button class="btn-primary" id="captureBtn" onclick="capturePhoto()" disabled>Take Photo (3 sec)</button>
+                    <button class="btn-secondary" id="resetBtn" onclick="resetPhotos()" disabled>Reset All</button>
+                    <button class="btn-success" id="downloadBtn" onclick="downloadStrip()" disabled>Download Photo Strip</button>
                 </div>
-                <div class="filter-option" onclick="selectFilter('grayscale')">
-                    <div class="filter-preview" style="filter: grayscale(100%);"></div>
-                    <label>B&W</label>
-                </div>
-                <div class="filter-option" onclick="selectFilter('sepia')">
-                    <div class="filter-preview" style="filter: sepia(100%);"></div>
-                    <label>Sepia</label>
-                </div>
-                <div class="filter-option" onclick="selectFilter('vintage')">
-                    <div class="filter-preview" style="filter: sepia(50%) contrast(120%) brightness(110%);"></div>
-                    <label>Vintage</label>
-                </div>
-                <div class="filter-option" onclick="selectFilter('cool')">
-                    <div class="filter-preview" style="filter: saturate(150%) hue-rotate(180deg);"></div>
-                    <label>Cool</label>
-                </div>
-                <div class="filter-option" onclick="selectFilter('warm')">
-                    <div class="filter-preview" style="filter: saturate(150%) hue-rotate(-20deg) brightness(110%);"></div>
-                    <label>Warm</label>
-                </div>
-                <div class="filter-option" onclick="selectFilter('vivid')">
-                    <div class="filter-preview" style="filter: saturate(200%) contrast(120%);"></div>
-                    <label>Vivid</label>
-                </div>
+
+                <div class="photos-grid" id="photosGrid"></div>
             </div>
-        </div>
 
-        <div class="layout-selector">
-            <h3>📐 Choose Your Layout</h3>
-            <p class="subtitle" style="margin-bottom: 15px;">Select how you want your photos arranged</p>
+            <!-- Right Column: Filter & Layout -->
+            <div class="right-column">
+                <div class="filter-selector">
+                    <h3>🎨 Choose a Filter</h3>
+                    
+                    <div class="filter-options">
+                        <div class="filter-option selected" onclick="selectFilter('none')">
+                            <div class="filter-preview" style="filter: none;"></div>
+                            <label>Normal</label>
+                        </div>
+                        <div class="filter-option" onclick="selectFilter('grayscale')">
+                            <div class="filter-preview" style="filter: grayscale(100%);"></div>
+                            <label>B&W</label>
+                        </div>
+                        <div class="filter-option" onclick="selectFilter('sepia')">
+                            <div class="filter-preview" style="filter: sepia(100%);"></div>
+                            <label>Sepia</label>
+                        </div>
+                        <div class="filter-option" onclick="selectFilter('vintage')">
+                            <div class="filter-preview" style="filter: sepia(50%) contrast(120%) brightness(110%);"></div>
+                            <label>Vintage</label>
+                        </div>
+                        <div class="filter-option" onclick="selectFilter('cool')">
+                            <div class="filter-preview" style="filter: saturate(150%) hue-rotate(180deg);"></div>
+                            <label>Cool</label>
+                        </div>
+                        <div class="filter-option" onclick="selectFilter('warm')">
+                            <div class="filter-preview" style="filter: saturate(150%) hue-rotate(-20deg) brightness(110%);"></div>
+                            <label>Warm</label>
+                        </div>
+                        <div class="filter-option" onclick="selectFilter('vivid')">
+                            <div class="filter-preview" style="filter: saturate(200%) contrast(120%);"></div>
+                            <label>Vivid</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layout-selector">
+                    <h3>📐 Choose Your Layout</h3>
             
             <div class="layout-options">
                 <div class="layout-option layout-a">
@@ -1406,15 +1454,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="controls">
-            <button class="btn-primary" id="startBtn" onclick="startCamera()">Start Camera</button>
-            <button class="btn-primary" id="captureBtn" onclick="capturePhoto()" disabled>Take Photo (3 sec)</button>
-            <button class="btn-secondary" id="resetBtn" onclick="resetPhotos()" disabled>Reset All</button>
-            <button class="btn-success" id="downloadBtn" onclick="downloadStrip()" disabled>Download Photo Strip</button>
+            </div>
         </div>
-
-        <div class="photos-grid" id="photosGrid"></div>
 
         <!-- Preview Section -->
         <div class="preview-section" id="previewSection">
