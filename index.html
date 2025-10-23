@@ -1986,13 +1986,13 @@
                     stripCtx.save();
                     stripCtx.translate(x + pos.xOffset, y + pos.yOffset);
                     stripCtx.rotate((pos.rotation * Math.PI) / 180);
-                    stripCtx.font = '35px Arial';
+                    stripCtx.font = '55px Arial';
                     stripCtx.textAlign = 'center';
                     stripCtx.textBaseline = 'middle';
                     
                     // Add white outline for sticker to stand out
                     stripCtx.strokeStyle = '#ffffff';
-                    stripCtx.lineWidth = 3;
+                    stripCtx.lineWidth = 4;
                     stripCtx.strokeText(sticker, 0, 0);
                     stripCtx.fillText(sticker, 0, 0);
                     
@@ -2047,7 +2047,7 @@
                     drawPhotoWithFrame(img, x, y, photoWidth, photoHeight, index + 1);
                 });
 
-                const footerY = borderWidth + headerSize + (photoHeight * 3) + (photoPadding * 2) + padding + 20;
+                const footerY = borderWidth + headerSize + (photoHeight * 3) + (photoPadding * 2) + padding + 70;
                 drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutB') {
@@ -2072,7 +2072,7 @@
                     }
                 }
 
-                const footerY = startY + (smallHeight * 2) + photoPadding + 50;
+                const footerY = startY + (smallHeight * 2) + photoPadding + 80;
                 drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutC') {
@@ -2086,7 +2086,7 @@
                     drawPhotoWithFrame(img, x, y, photoWidth, photoHeight, index + 1);
                 });
 
-                const footerY = borderWidth + headerSize + (photoHeight * 2) + photoPadding + 20;
+                const footerY = borderWidth + headerSize + (photoHeight * 2) + photoPadding + 70;
                 drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutD') {
@@ -2141,7 +2141,7 @@
                     }
                 }
 
-                const footerY = bottomY + (smallHeight * 2) + photoPadding + 30;
+                const footerY = bottomY + (smallHeight * 2) + photoPadding + 60;
                 drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'horizontal') {
@@ -2191,7 +2191,7 @@
                 });
 
                 // Footer section at the bottom
-                const footerY = startY + photoHeight + 60;
+                const footerY = startY + photoHeight + 90;
                 drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutE') {
@@ -2255,7 +2255,7 @@
                     stripCtx.fillText('✨', x + photoWidth + 5, y + 20);
                 });
 
-                const footerY = startY + (photoHeight + photoPadding + 30) * 3 + 20;
+                const footerY = startY + (photoHeight + photoPadding + 30) * 3 + 50;
                 drawFooter(targetCanvas.width / 2, footerY);
 
             } else if (layout === 'layoutF') {
@@ -2301,7 +2301,7 @@
                 stripCtx.fillStyle = '#ffffff';
                 stripCtx.font = '12px Arial';
                 stripCtx.textAlign = 'center';
-                const footerY = startY + (photoHeight + photoSpacing) * 4 + 20;
+                const footerY = startY + (photoHeight + photoSpacing) * 4 + 50;
                 stripCtx.fillText('PhotoBooth Memories', targetCanvas.width / 2, footerY);
             }
         }
