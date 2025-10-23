@@ -1856,17 +1856,45 @@
                     stripCtx.quadraticCurveTo(x, y, x + radius, y);
                     stripCtx.clip();
                 } else if (customOptions.photoShape === 'heart') {
-                    // Heart shape clipping
-                    const heartWidth = width;
-                    const heartHeight = height;
+                    // Heart shape clipping - proper heart shape
+                    const centerX = x + width / 2;
+                    const centerY = y + height / 2;
+                    const heartWidth = width * 0.9;
+                    const heartHeight = height * 0.9;
+                    
                     stripCtx.beginPath();
-                    stripCtx.moveTo(x + heartWidth / 2, y + heartHeight / 4);
-                    stripCtx.quadraticCurveTo(x + heartWidth / 2, y, x + heartWidth / 4, y);
-                    stripCtx.quadraticCurveTo(x, y, x, y + heartHeight / 4);
-                    stripCtx.quadraticCurveTo(x, y + heartHeight / 2, x + heartWidth / 2, y + heartHeight * 0.85);
-                    stripCtx.quadraticCurveTo(x + heartWidth, y + heartHeight / 2, x + heartWidth, y + heartHeight / 4);
-                    stripCtx.quadraticCurveTo(x + heartWidth, y, x + heartWidth * 0.75, y);
-                    stripCtx.quadraticCurveTo(x + heartWidth / 2, y, x + heartWidth / 2, y + heartHeight / 4);
+                    // Start at bottom point of heart
+                    stripCtx.moveTo(centerX, centerY + heartHeight * 0.4);
+                    
+                    // Left side of heart - bottom curve
+                    stripCtx.bezierCurveTo(
+                        centerX - heartWidth * 0.5, centerY + heartHeight * 0.2,
+                        centerX - heartWidth * 0.5, centerY - heartHeight * 0.1,
+                        centerX - heartWidth * 0.25, centerY - heartHeight * 0.3
+                    );
+                    
+                    // Left top lobe
+                    stripCtx.bezierCurveTo(
+                        centerX - heartWidth * 0.4, centerY - heartHeight * 0.5,
+                        centerX - heartWidth * 0.15, centerY - heartHeight * 0.5,
+                        centerX, centerY - heartHeight * 0.3
+                    );
+                    
+                    // Right top lobe
+                    stripCtx.bezierCurveTo(
+                        centerX + heartWidth * 0.15, centerY - heartHeight * 0.5,
+                        centerX + heartWidth * 0.4, centerY - heartHeight * 0.5,
+                        centerX + heartWidth * 0.25, centerY - heartHeight * 0.3
+                    );
+                    
+                    // Right side of heart - bottom curve
+                    stripCtx.bezierCurveTo(
+                        centerX + heartWidth * 0.5, centerY - heartHeight * 0.1,
+                        centerX + heartWidth * 0.5, centerY + heartHeight * 0.2,
+                        centerX, centerY + heartHeight * 0.4
+                    );
+                    
+                    stripCtx.closePath();
                     stripCtx.clip();
                 }
                 
