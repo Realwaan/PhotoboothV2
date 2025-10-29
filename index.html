@@ -774,43 +774,64 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c92a5c 100%);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.9);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease-out;
-            box-shadow: 0 4px 12px rgba(201, 42, 92, 0.4), 
-                        0 2px 4px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(8px);
             z-index: 10;
+            padding: 0;
         }
         
         .delete-btn::before {
-            content: '×';
-            font-size: 22px;
-            line-height: 1;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .delete-btn:hover {
-            background: linear-gradient(135deg, #ff5286 0%, #b01f4c 100%);
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(201, 42, 92, 0.6), 
-                        0 3px 8px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 1);
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            border: 16px solid rgba(255, 107, 157, 0.3);
+            border-radius: 50%;
+            transition: all 0.2s ease-in-out;
         }
         
-        .delete-btn:active {
-            transform: scale(0.95);
-            box-shadow: 0 2px 8px rgba(201, 42, 92, 0.5);
+        .delete-btn::after {
+            content: 'x';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.25, 1);
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c92a5c 100%);
+            color: rgba(255, 255, 255, 0.95);
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.075s ease-in-out;
+            box-shadow: 0 4px 12px rgba(201, 42, 92, 0.4);
+        }
+
+        .delete-btn:hover::after {
+            font-size: 19.2px;
+            box-shadow: 0 6px 16px rgba(201, 42, 92, 0.5);
+        }
+
+        .delete-btn:active::before {
+            border-color: rgba(255, 80, 120, 0.5);
+        }
+        
+        .delete-btn:active::after {
+            font-size: 12px;
+            border-color: rgba(80, 50, 50, 0.8);
+            background: linear-gradient(135deg, #ff5286 0%, #b01f4c 100%);
+            box-shadow: 0 2px 8px rgba(201, 42, 92, 0.6);
         }
 
         .message {
