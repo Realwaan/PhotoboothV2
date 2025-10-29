@@ -528,31 +528,38 @@
         }
 
         /* Heart shape for layout preview */
+        .layout-e .layout-preview {
+            overflow: visible;
+            padding: 15px 8px;
+        }
+        
         .heart-shape {
-            width: 24px !important;
-            height: 24px !important;
+            width: 20px !important;
+            height: 20px !important;
             position: relative;
             transform: rotate(-45deg);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            border-radius: 0;
+            margin: 3px auto;
         }
 
         .heart-shape::before,
         .heart-shape::after {
             content: "";
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .heart-shape::before {
-            top: -12px;
+            top: -10px;
             left: 0;
         }
 
         .heart-shape::after {
-            left: 12px;
+            left: 10px;
             top: 0;
         }
 
@@ -627,8 +634,21 @@
             height: 60px;
             margin: 0 auto 6px;
             border-radius: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b9d 25%, #667eea 50%, #38ef7d 75%);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 10%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(255, 107, 157, 0.6) 15%, transparent 50%);
         }
 
         .filter-option label {
