@@ -354,6 +354,7 @@
             height: 100%;
             display: block;
             object-fit: cover;
+            transform: scaleX(-1);
         }
 
         #canvas {
@@ -1881,8 +1882,11 @@
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
 
-            // Draw the video frame to canvas
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Flip the canvas horizontally to mirror the video
+            ctx.save();
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+            ctx.restore();
 
             // Apply filter to the captured image
             applyFilterToCanvas(ctx, canvas.width, canvas.height);
